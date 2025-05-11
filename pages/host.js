@@ -1,58 +1,74 @@
 // pages/host.js
 import { useState } from 'react';
-import Link from 'next/link';
 
-export default function HostForm() {
-  const [formData, setFormData] = useState({
-    name: '',
-    location: '',
-    price: '',
-    description: '',
-    extras: '',
-  });
-
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+export default function Host() {
+  const [poolName, setPoolName] = useState('');
+  const [location, setLocation] = useState('');
+  const [price, setPrice] = useState('');
+  const [description, setDescription] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('New Pool Submitted:', formData);
-    setSubmitted(true);
+    console.log('New Pool Details:', { poolName, location, price, description });
+    
+    // Clear form
+    setPoolName('');
+    setLocation('');
+    setPrice('');
+    setDescription('');
   };
 
   return (
     <div style={{ padding: '20px' }}>
-      <Link href="/">← Back to homepage</Link>
       <h1>Host Your Pool</h1>
+      <p>Submit your pool details to make it available on Pool Pass.</p>
 
-      {submitted ? (
-        <p>✅ Thanks! Your pool submission has been received.</p>
-      ) : (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '500px' }}>
+      <form onSubmit={handleSubmit}>
+        <div style={{ marginBottom: '10px' }}>
           <label>Pool Name:</label>
-          <input name="name" value={formData.name} onChange={handleChange} required />
+          <input
+            type="text"
+            value={poolName}
+            onChange={(e) => setPoolName(e.target.value)}
+            required
+            style={{ width: '100%', padding: '10px', marginTop: '5px' }}
+          />
+        </div>
 
+        <div style={{ marginBottom: '10px' }}>
           <label>Location:</label>
-          <input name="location" value={formData.location} onChange={handleChange} required />
+          <input
+            type="text"
+            value={location}
+            onChange={(e) => setLocation(e.target.value)}
+            required
+            style={{ width: '100%', padding: '10px', marginTop: '5px' }}
+          />
+        </div>
 
-          <label>Price per Day (£):</label>
-          <input name="price" value={formData.price} onChange={handleChange} required />
+        <div style={{ marginBottom: '10px' }}>
+          <label>Price per Day:</label>
+          <input
+            type="text"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+            required
+            style={{ width: '100%', padding: '10px', marginTop: '5px' }}
+          />
+        </div>
 
+        <div style={{ marginBottom: '10px' }}>
           <label>Description:</label>
-          <textarea name="description" value={formData.description} onChange={handleChange} required />
+          <textarea
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+            style={{ width: '100%', padding: '10px', marginTop: '5px' }}
+          />
+        </div>
 
-          <label>Extras (optional):</label>
-          <input name="extras" value={formData.extras} onChange={handleChange} />
-
-          <button type="submit" style={{ marginTop: '15px' }}>Submit</button>
-        </form>
-      )}
+        <button type="submit" style={{ padding: '10px 20px', fontSize: '16px' }}>Submit Pool</button>
+      </form>
     </div>
   );
 }
