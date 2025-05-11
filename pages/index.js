@@ -60,22 +60,4 @@ export default function Home() {
     const matchesLocation = pool.location.toLowerCase().includes(search.toLowerCase());
     const matchesType = type ? pool.type === type : true;
     const matchesDate = availableDate ? pool.availableDates.includes(availableDate) : true;
-    return matchesLocation && matchesType && matchesDate;
-  });
-
-  // Function to display rating stars
-  const renderRatingStars = (rating) => {
-    const fullStars = Math.floor(rating);
-    const halfStars = rating % 1 !== 0;
-    let stars = [];
-
-    for (let i = 0; i < fullStars; i++) {
-      stars.push('★'); // Full star
-    }
-
-    if (halfStars) {
-      stars.push('☆'); // Half star
-    }
-
-    while (stars.length < 5) {
-      stars.push('☆'); // Empty stars to make it out of 5
+    return matchesLocation && matchesTy
