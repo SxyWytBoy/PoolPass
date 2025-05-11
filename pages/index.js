@@ -26,7 +26,7 @@ const pools = [
     price: '£15',
     description: 'Peaceful outdoor pool with countryside views.',
     type: 'Countryside',
-    image: '/images/countryside-pool.jpg',
+    image: '/images/countryside-pool.jpeg',
     availableDates: ['2025-05-14', '2025-05-18'],
     rating: 3.8,
     reviews: [
