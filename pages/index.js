@@ -1,5 +1,6 @@
 // pages/index.js
 import Link from 'next/link';
+import Image from 'next/image'; // ✅ Import the Image component
 
 const pools = [
   {
@@ -8,6 +9,7 @@ const pools = [
     location: 'London',
     price: '£25',
     description: 'Access to rooftop infinity pool with towels included.',
+    image: '/images/luxury-pool.jpg', // ✅ Add an image URL for this pool
   },
   {
     id: 2,
@@ -15,6 +17,7 @@ const pools = [
     location: 'Somerset',
     price: '£15',
     description: 'Peaceful outdoor pool with countryside views.',
+    image: '/images/countryside-pool.jpg', // ✅ Add an image URL for this pool
   },
   {
     id: 3,
@@ -22,6 +25,7 @@ const pools = [
     location: 'Manchester',
     price: '£10',
     description: 'Indoor heated pool at modern fitness center.',
+    image: '/images/city-gym-pool.jpg', // ✅ Add an image URL for this pool
   },
 ];
 
@@ -34,6 +38,15 @@ export default function Home() {
       <div>
         {pools.map((pool) => (
           <div key={pool.id} className="card">
+            {/* ✅ Add the Image component here */}
+            <Image
+              src={pool.image}  // Image source from the pool object
+              alt={pool.name}    // Alt text for accessibility
+              width={600}         // Set the width for the image
+              height={400}        // Set the height for the image
+              layout="responsive" // Makes the image responsive
+              objectFit="cover"   // Ensures the image covers the space without distortion
+            />
             <h2>{pool.name}</h2>
             <p><strong>Location:</strong> {pool.location}</p>
             <p><strong>Price:</strong> {pool.price}</p>
