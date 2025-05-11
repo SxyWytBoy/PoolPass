@@ -1,6 +1,6 @@
 // pages/host.js
 import { useState } from 'react';
-import { useRouter } from 'next/router'; // ✅ 1. Import the router
+import { useRouter } from 'next/router'; // ✅ Import router
 
 export default function Host() {
   const [poolName, setPoolName] = useState('');
@@ -8,20 +8,39 @@ export default function Host() {
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
   
-  const router = useRouter(); // ✅ 2. Initialize router
+  const router = useRouter();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('New Pool Details:', { poolName, location, price, description });
-    
-    // Clear form
-    setPoolName('');
-    setLocation('');
-    setPrice('');
-    setDescription('');
 
-    // ✅ 3. Redirect to thank you page
-    router.push('/thankyou');
+    const newPool = {
+      poolName,
+      location,
+      price,
+      description,
+    };
+
+    try {
+      await fetch('https://script.google.com/macros/s/AKfycbzVNQhDJHcjERQFYI6GWs_5SJ7faBlOL2ien5MlL862DnU7sHPtybshgC9riiQkYSDSnA/exec', {
+        method: 'POST',
+        body: JSON.stringify(newPool),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      // Clear the form
+      setPoolName('');
+      setLocation('');
+      setPrice('');
+      setDescription('');
+
+      // Redirect to thank you page
+      router.push('/thankyou');
+    } catch (error) {
+      console.error('Error submitting pool:', error);
+      alert('Something went wrong. Please try again later.');
+    }
   };
 
   return (
