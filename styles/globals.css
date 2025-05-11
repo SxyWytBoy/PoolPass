@@ -1,0 +1,43 @@
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #f9f9f9;
+  color: #333;
+}
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.card {
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #005dc1;
+}
+
+input, textarea {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 5px;
+}
