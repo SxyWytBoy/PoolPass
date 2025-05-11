@@ -1,6 +1,6 @@
 // pages/index.js
 import Link from 'next/link';
-import Image from 'next/image'; // ✅ Import the Image component
+import Image from 'next/image';
 
 const pools = [
   {
@@ -49,4 +49,21 @@ export default function Home() {
               />
             </div>
             <h2>{pool.name}</h2>
-            <p><strong
+            <p><strong>Location:</strong> {pool.location}</p>
+            <p><strong>Price:</strong> {pool.price}</p>
+            <p>{pool.description}</p>
+            <Link href={`/pool/${pool.id}`}>
+              <button style={{ marginTop: '10px' }}>View Details</button>
+            </Link>
+          </div>
+        ))}
+      </div>
+
+      <div style={{ marginTop: '30px', textAlign: 'center' }}>
+        <Link href="/host">
+          <button>Host Your Pool</button>
+        </Link>
+      </div>
+    </div>
+  );
+}
