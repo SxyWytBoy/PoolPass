@@ -1,11 +1,14 @@
 // pages/host.js
 import { useState } from 'react';
+import { useRouter } from 'next/router'; // ✅ 1. Import the router
 
 export default function Host() {
   const [poolName, setPoolName] = useState('');
   const [location, setLocation] = useState('');
   const [price, setPrice] = useState('');
   const [description, setDescription] = useState('');
+  
+  const router = useRouter(); // ✅ 2. Initialize router
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -16,6 +19,9 @@ export default function Host() {
     setLocation('');
     setPrice('');
     setDescription('');
+
+    // ✅ 3. Redirect to thank you page
+    router.push('/thankyou');
   };
 
   return (
