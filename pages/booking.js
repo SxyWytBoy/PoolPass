@@ -2,7 +2,12 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
+import { useRouter } from 'next/router';
+
 export default function BookingForm() {
+  const router = useRouter();
+  const { pool: selectedPool } = router.query;
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
