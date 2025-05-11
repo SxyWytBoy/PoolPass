@@ -46,7 +46,15 @@ export default function PoolDetail() {
       <p>{pool.description}</p>
       <p><strong>Extras:</strong> {pool.extras}</p>
 
-      <button style={{ marginTop: '20px' }}>Book This Pool</button>
+      <Link
+  href={{
+    pathname: '/booking',
+    query: { pool: pool.name },
+  }}
+>
+  <button style={{ marginTop: '20px' }}>Book This Pool</button>
+</Link>
+
     </div>
   );
 }
