@@ -27,13 +27,13 @@ const pools = [
 
 export default function Home() {
   return (
-    <div style={{ padding: '20px' }}>
-      <h1>Pool Pass</h1>
+    <div className="container">
+      <h1>🏊 Pool Pass</h1>
       <p>Find and book access to pools across the UK</p>
 
       <div>
         {pools.map((pool) => (
-          <div key={pool.id} style={{ border: '1px solid #ccc', padding: '15px', marginBottom: '10px' }}>
+          <div key={pool.id} className="card">
             <h2>{pool.name}</h2>
             <p><strong>Location:</strong> {pool.location}</p>
             <p><strong>Price:</strong> {pool.price}</p>
@@ -45,10 +45,9 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Add the "Host Your Pool" button here */}
-      <div style={{ marginTop: '20px' }}>
+      <div style={{ marginTop: '30px', textAlign: 'center' }}>
         <Link href="/host">
-          <button style={{ padding: '10px 20px', fontSize: '16px' }}>Host Your Pool</button>
+          <button>Host Your Pool</button>
         </Link>
       </div>
     </div>
