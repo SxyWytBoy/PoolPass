@@ -14,7 +14,7 @@ const pools = [
     image: '/images/luxury-pool.jpg',
     availableDates: ['2025-05-15', '2025-05-16'],
     rating: 4.5, // Add average rating
-    reviews: [ // Add sample reviews
+    reviews: [
       { user: 'John Doe', comment: 'Amazing experience, highly recommended!', rating: 5 },
       { user: 'Jane Smith', comment: 'Lovely pool, but a bit crowded.', rating: 4 },
     ],
@@ -79,48 +79,3 @@ export default function Home() {
 
     while (stars.length < 5) {
       stars.push('☆'); // Empty stars to make it out of 5
-    }
-
-    return stars.join(' ');
-  };
-
-  return (
-    <div className="container">
-      <h1>🏊 Pool Pass</h1>
-      <p>Find and book access to pools across the UK</p>
-
-      {/* Search and Filter UI */}
-      <div className="filters" style={{ marginBottom: '20px' }}>
-        <input
-          type="text"
-          placeholder="Search by Location"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: '8px',
-            width: '300px',
-            marginRight: '10px',
-            borderRadius: '5px',
-            border: '1px solid #ccc',
-          }}
-        />
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          style={{
-            padding: '8px',
-            marginRight: '10px',
-            borderRadius: '5px',
-            border: '1px solid #ccc',
-          }}
-        >
-          <option value="">Select Pool Type</option>
-          <option value="Luxury">Luxury</option>
-          <option value="Countryside">Countryside</option>
-          <option value="Gym">Gym</option>
-        </select>
-        <input
-          type="date"
-          value={availableDate}
-          onChange={(e) => setAvailableDate(e.target.value)}
-          style={{
