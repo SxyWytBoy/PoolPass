@@ -24,13 +24,6 @@ const pools = [
     description: 'Indoor heated pool at modern fitness center.',
   },
 ];
-</div>
-
-<div style={{ marginTop: '20px' }}>
-  <Link href="/host">
-    <button style={{ padding: '10px 20px', fontSize: '16px' }}>Host Your Pool</button>
-  </Link>
-</div>
 
 export default function Home() {
   return (
@@ -50,6 +43,13 @@ export default function Home() {
             </Link>
           </div>
         ))}
+      </div>
+
+      {/* Add the "Host Your Pool" button here */}
+      <div style={{ marginTop: '20px' }}>
+        <Link href="/host">
+          <button style={{ padding: '10px 20px', fontSize: '16px' }}>Host Your Pool</button>
+        </Link>
       </div>
     </div>
   );
