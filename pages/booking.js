@@ -12,7 +12,7 @@ export default function BookingForm() {
     name: '',
     email: '',
     date: '',
-    pool: '',
+    pool: selectedPool ||'',
   });
 
   const [submitted, setSubmitted] = useState(false);
