@@ -11,7 +11,7 @@ const pools = [
     price: '£25',
     description: 'Access to rooftop infinity pool with towels included.',
     type: 'Luxury',
-    image: '/images/luxury-pool.jpg',
+    image: '/images/luxury-pool.jpg', // Ensure this path is correct
     availableDates: ['2025-05-15', '2025-05-16'],
   },
   {
@@ -102,10 +102,10 @@ export default function Home() {
             {/* ✅ Responsive image */}
             <div style={{ position: 'relative', width: '100%', height: '200px', marginBottom: '15px' }}>
               <Image
-                src={pool.image}
-                alt={pool.name}
-                layout="fill"
-                objectFit="cover"
+                src={pool.image}  // Image source from the pool object
+                alt={pool.name}    // Alt text for accessibility
+                layout="fill"      // Use fill for responsive layout
+                objectFit="cover"  // Ensure image covers the container
                 style={{ borderRadius: '10px' }}
               />
             </div>
