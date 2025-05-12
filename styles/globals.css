@@ -1,3 +1,137 @@
+/* globals.css */
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #001f3f; /* Deep blue background */
+  color: #fff; /* Light text for contrast */
+}
+
+/* Header styling */
+header {
+  display: flex;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #001f3f;
+  border-bottom: 1px solid #003366;
+}
+
+header img {
+  height: 80px; /* Bigger logo */
+  width: auto;
+}
+
+nav {
+  margin-left: auto;
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #0070f3;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Card style for pools */
+.card {
+  background: white;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 16px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+button:hover {
+  background-color: #005dc1;
+}
+
+/* Inputs and text areas */
+input,
+textarea {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 5px;
+}
+
+/* Filters */
+.filters input,
+.filters select {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Grid layout for tabs/cards */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.card-grid .card {
+  flex: 1 1 calc(33.33% - 20px);
+  max-width: calc(33.33% - 20px);
+}
+
+/* Mobile-First Approach */
+@media (max-width: 768px) {
+  .card-grid .card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* View Details Page Styling */
 .details-container {
   max-width: 1200px;
