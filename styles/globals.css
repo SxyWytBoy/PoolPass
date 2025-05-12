@@ -49,6 +49,28 @@ input, textarea {
   margin-top: 5px;
 }
 
+/* Enhanced filter/search bar appearance */
+.filters input,
+.filters select {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
 /* Mobile-First Approach: Default is for mobile devices */
 .container {
   padding: 10px;
@@ -62,4 +84,28 @@ input, textarea {
 
   .card {
     width: 48%; /* Two cards per row */
-    display: in
+    display: inline-block;
+    margin-right: 4%;
+  }
+
+  .card:nth-child(2n) {
+    margin-right: 0;
+  }
+}
+
+/* Desktop Screens */
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1200px;
+  }
+
+  .card {
+    width: 30%; /* Three cards per row */
+    display: inline-block;
+    margin-right: 3%;
+  }
+
+  .card:nth-child(3n) {
+    margin-right: 0;
+  }
+}
