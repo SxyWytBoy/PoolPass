@@ -1,85 +1,28 @@
-/* globals.css */
+// pages/_app.js
+import '../styles/globals.css';
+import Image from 'next/image'; // Import Image for Next.js image optimization
+import Link from 'next/link';   // Import Link for navigation
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #001f3f; /* Deep blue background */
-  color: #fff; /* Light text for contrast */
-}
+export default function App({ Component, pageProps }) {
+  return (
+    <>
+      {/* Header Section */}
+      <header className="header">
+        <Link href="/">
+          <Image
+            src="/PoolPass Logo.jpeg" // Path to your logo image
+            alt="PoolPass Logo"
+            height={80} // Increase logo size
+            width={auto} // Maintain aspect ratio
+          />
+        </Link>
+        <h1>🏊 Pool Pass</h1> {/* Add the header text here */}
+      </header>
 
-/* Header styling */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #001f3f; /* Deep blue background */
-}
-
-header img {
-  height: 60px; /* Adjust to the height of your logo */
-  width: auto; /* Maintain aspect ratio */
-}
-
-nav {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-}
-
-nav a {
-  color: #fff;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-nav a:hover {
-  color: #0070f3; /* Change on hover */
-}
-
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* Mobile-First Approach: Default is for mobile devices */
-.container {
-  padding: 10px;
-}
-
-/* Larger screens (tablets, desktops) */
-@media (min-width: 768px) {
-  .container {
-    padding: 20px;
-  }
-
-  .card {
-    width: 48%; /* Two cards per row */
-    display: inline-block;
-    margin-right: 4%;
-  }
-
-  .card:nth-child(2n) {
-    margin-right: 0;
-  }
-}
-
-/* Desktop Screens */
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1200px;
-  }
-
-  .card {
-    width: 30%; /* Three cards per row */
-    display: inline-block;
-    margin-right: 3%;
-  }
-
-  .card:nth-child(3n) {
-    margin-right: 0;
-  }
+      {/* Main Content of the Page */}
+      <main className="container">
+        <Component {...pageProps} />
+      </main>
+    </>
+  );
 }
