@@ -93,13 +93,20 @@ export default function PoolDetail() {
       </div>
 
       {/* Pool Info */}
-      <div className="bg-white shadow-md rounded-lg p-6">
+      <div className="bg-white shadow-md rounded-lg p-6 mb-6">
         <p className="mb-2"><span className="font-semibold">Location:</span> {pool.location}</p>
         <p className="mb-2"><span className="font-semibold">Price:</span> {pool.price}</p>
         <p className="mb-2"><span className="font-semibold">Type:</span> {pool.type}</p>
         <p className="mb-2"><span className="font-semibold">Available Dates:</span> {pool.availableDates.join(', ')}</p>
         <p className="mb-4"><span className="font-semibold">Rating:</span> <span className="text-yellow-500">{renderRatingStars(pool.rating)}</span></p>
         <p className="mb-4 text-gray-700">{pool.description}</p>
+
+        {/* Book Button */}
+        <Link href={`/booking?poolId=${pool.id}`}>
+          <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200">
+            Book a Day Pass
+          </button>
+        </Link>
       </div>
 
       {/* Reviews */}
