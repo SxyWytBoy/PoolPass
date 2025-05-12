@@ -12,10 +12,13 @@ export default function App({ Component, pageProps }) {
           <Image
             src="/PoolPass Logo.jpeg" // Path to your logo image
             alt="PoolPass Logo"
-            width={120} // Adjust width as necessary
-            height={40} // Adjust height as necessary
+            width={200} // Adjust width to make the logo bigger
+            height={60} // Adjust height for correct aspect ratio
           />
         </Link>
+        <nav className="nav">
+          {/* Add your navigation links here */}
+        </nav>
       </header>
 
       {/* Main Content of the Page */}
