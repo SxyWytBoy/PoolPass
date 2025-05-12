@@ -10,7 +10,7 @@ const pools = [
     location: 'London',
     price: '£25',
     description: 'Access to rooftop infinity pool with towels included.',
-    type: 'Luxury',
+    type: 'Hotel Pool',
     image: '/images/luxury-pool.jpg',
     availableDates: ['2025-05-15', '2025-05-16'],
     rating: 4.5,
@@ -25,7 +25,7 @@ const pools = [
     location: 'Somerset',
     price: '£15',
     description: 'Peaceful outdoor pool with countryside views.',
-    type: 'Countryside',
+    type: 'Public Pool',
     image: '/images/countryside-pool.jpeg',
     availableDates: ['2025-05-14', '2025-05-18'],
     rating: 3.8,
@@ -40,7 +40,7 @@ const pools = [
     location: 'Manchester',
     price: '£10',
     description: 'Indoor heated pool at modern fitness center.',
-    type: 'Gym',
+    type: 'Gym Pool',
     image: '/images/city-gym-pool.jpg',
     availableDates: ['2025-05-10', '2025-05-12'],
     rating: 4.2,
@@ -53,12 +53,23 @@ const pools = [
 
 export default function Home() {
   const [search, setSearch] = useState('');
-  const [type, setType] = useState('');
+  const [selectedTypes, setSelectedTypes] = useState([]);
   const [availableDate, setAvailableDate] = useState('');
 
+  // Update selected types when checkboxes are toggled
+  const handleTypeChange = (event) => {
+    const value = event.target.value;
+    setSelectedTypes((prevSelectedTypes) =>
+      prevSelectedTypes.includes(value)
+        ? prevSelectedTypes.filter((type) => type !== value)
+        : [...prevSelectedTypes, value]
+    );
+  };
+
+  // Filter pools based on the search and selected pool types
   const filteredPools = pools.filter((pool) => {
     const matchesLocation = pool.location.toLowerCase().includes(search.toLowerCase());
-    const matchesType = type ? pool.type === type : true;
+    const matchesType = selectedTypes.length > 0 ? selectedTypes.includes(pool.type) : true;
     const matchesDate = availableDate ? pool.availableDates.includes(availableDate) : true;
     return matchesLocation && matchesType && matchesDate;
   });
@@ -90,6 +101,7 @@ export default function Home() {
 
       {/* Search and Filter UI */}
       <div className="filters" style={{ marginBottom: '20px' }}>
+        {/* Search by Location */}
         <input
           type="text"
           placeholder="Search by Location"
@@ -103,21 +115,51 @@ export default function Home() {
             border: '1px solid #ccc',
           }}
         />
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value)}
-          style={{
-            padding: '8px',
-            marginRight: '10px',
-            borderRadius: '5px',
-            border: '1px solid #ccc',
-          }}
-        >
-          <option value="">Select Pool Type</option>
-          <option value="Luxury">Luxury</option>
-          <option value="Countryside">Countryside</option>
-          <option value="Gym">Gym</option>
-        </select>
+        
+        {/* Pool Type Filter */}
+        <div style={{ position: 'relative' }}>
+          <button
+            style={{
+              padding: '8px',
+              marginRight: '10px',
+              borderRadius: '5px',
+              border: '1px solid #ccc',
+            }}
+            onClick={() => {
+              const dropdown = document.getElementById('type-dropdown');
+              dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+            }}
+          >
+            Select Pool Type
+          </button>
+          <div
+            id="type-dropdown"
+            style={{
+              position: 'absolute',
+              backgroundColor: 'white',
+              boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
+              display: 'none',
+              zIndex: 1,
+              padding: '10px',
+              borderRadius: '5px',
+              width: '200px',
+            }}
+          >
+            {['Hotel Pool', 'Public Pool', 'Gym Pool', 'Private Pool'].map((type) => (
+              <div key={type}>
+                <input
+                  type="checkbox"
+                  value={type}
+                  checked={selectedTypes.includes(type)}
+                  onChange={handleTypeChange}
+                />
+                <label>{type}</label>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Date Picker */}
         <input
           type="date"
           value={availableDate}
@@ -134,7 +176,6 @@ export default function Home() {
       <div>
         {filteredPools.map((pool) => (
           <div key={pool.id} className="card" style={{ marginBottom: '20px' }}>
-            {/* Responsive Image */}
             <div style={{ position: 'relative', width: '100%', height: '200px', marginBottom: '15px' }}>
               <Image
                 src={pool.image}
@@ -148,11 +189,7 @@ export default function Home() {
             <p><strong>Location:</strong> {pool.location}</p>
             <p><strong>Price:</strong> {pool.price}</p>
             <p>{pool.description}</p>
-
-            {/* Rating */}
             <p><strong>Rating:</strong> {renderRatingStars(pool.rating)}</p>
-
-            {/* Reviews */}
             <div>
               <strong>Reviews:</strong>
               {pool.reviews.map((review, index) => (
@@ -162,7 +199,6 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
             <Link href={`/pool/${pool.id}`}>
               <button style={{ marginTop: '10px' }}>View Details</button>
             </Link>
