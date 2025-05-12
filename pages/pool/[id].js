@@ -75,20 +75,24 @@ export default function PoolDetail() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-      <Link href="/" className="text-blue-600 hover:underline text-sm mb-4 inline-block">← Back to Pools</Link>
+      <Link href="/" className="text-blue-600 hover:underline text-sm mb-4 inline-block">
+        ← Back to Pools
+      </Link>
 
       <h1 className="text-3xl font-bold mb-4">{pool.name}</h1>
 
-      <div className="relative w-full h-64 mb-6 rounded-lg overflow-hidden">
+      {/* Image Container */}
+      <div className="w-full mb-6 rounded-lg overflow-hidden border border-gray-300">
         <Image
           src={pool.image}
           alt={pool.name}
-          layout="fill"
-          objectFit="cover"
-          className="rounded-lg"
+          width={1200}
+          height={600}
+          style={{ width: '100%', height: 'auto', objectFit: 'cover' }}
         />
       </div>
 
+      {/* Pool Info */}
       <div className="bg-white shadow-md rounded-lg p-6">
         <p className="mb-2"><span className="font-semibold">Location:</span> {pool.location}</p>
         <p className="mb-2"><span className="font-semibold">Price:</span> {pool.price}</p>
@@ -98,6 +102,7 @@ export default function PoolDetail() {
         <p className="mb-4 text-gray-700">{pool.description}</p>
       </div>
 
+      {/* Reviews */}
       <div className="mt-6">
         <h2 className="text-xl font-semibold mb-4">Reviews</h2>
         {pool.reviews.map((review, index) => (
