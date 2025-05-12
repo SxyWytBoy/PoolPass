@@ -104,7 +104,7 @@ export default function PoolDetail() {
         {/* Book Button */}
         <Link href={`/booking?poolId=${pool.id}`}>
           <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200">
-            Book a Day Pass
+            Book your PoolPass
           </button>
         </Link>
       </div>
