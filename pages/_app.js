@@ -10,7 +10,7 @@ export default function App({ Component, pageProps }) {
       <header className="header">
         <Link href="/">
           <Image
-            src="/poolpass-logo.png" // Path to your logo image
+            src="/PoolPass Logo.jpeg" // Path to your logo image
             alt="PoolPass Logo"
             width={120} // Adjust width as necessary
             height={40} // Adjust height as necessary
