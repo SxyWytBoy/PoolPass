@@ -58,50 +58,56 @@ export default function PoolDetail() {
   const pool = pools.find((p) => p.id === parseInt(id));
 
   if (!pool) {
-    return <p>Loading...</p>;
+    return <p className="p-8 text-gray-600">Loading...</p>;
   }
 
   const renderRatingStars = (rating) => {
     const fullStars = Math.floor(rating);
-    const halfStars = rating % 1 !== 0;
-    let stars = [];
+    const halfStar = rating % 1 !== 0;
+    const stars = [];
 
     for (let i = 0; i < fullStars; i++) stars.push('★');
-    if (halfStars) stars.push('☆');
+    if (halfStar) stars.push('☆');
     while (stars.length < 5) stars.push('☆');
 
     return stars.join(' ');
   };
 
   return (
-    <div className="container" style={{ padding: '20px' }}>
-      <Link href="/">← Back to Pools</Link>
+    <div className="max-w-3xl mx-auto px-4 py-8">
+      <Link href="/" className="text-blue-600 hover:underline text-sm mb-4 inline-block">← Back to Pools</Link>
 
-      <h1>{pool.name}</h1>
-      <div style={{ position: 'relative', width: '100%', height: '300px', marginBottom: '20px' }}>
+      <h1 className="text-3xl font-bold mb-4">{pool.name}</h1>
+
+      <div className="relative w-full h-64 mb-6 rounded-lg overflow-hidden">
         <Image
           src={pool.image}
           alt={pool.name}
           layout="fill"
           objectFit="cover"
-          style={{ borderRadius: '10px' }}
+          className="rounded-lg"
         />
       </div>
 
-      <p><strong>Location:</strong> {pool.location}</p>
-      <p><strong>Price:</strong> {pool.price}</p>
-      <p><strong>Description:</strong> {pool.description}</p>
-      <p><strong>Type:</strong> {pool.type}</p>
-      <p><strong>Available Dates:</strong> {pool.availableDates.join(', ')}</p>
-      <p><strong>Rating:</strong> {renderRatingStars(pool.rating)}</p>
+      <div className="bg-white shadow-md rounded-lg p-6">
+        <p className="mb-2"><span className="font-semibold">Location:</span> {pool.location}</p>
+        <p className="mb-2"><span className="font-semibold">Price:</span> {pool.price}</p>
+        <p className="mb-2"><span className="font-semibold">Type:</span> {pool.type}</p>
+        <p className="mb-2"><span className="font-semibold">Available Dates:</span> {pool.availableDates.join(', ')}</p>
+        <p className="mb-4"><span className="font-semibold">Rating:</span> <span className="text-yellow-500">{renderRatingStars(pool.rating)}</span></p>
+        <p className="mb-4 text-gray-700">{pool.description}</p>
+      </div>
 
-      <h3>Reviews</h3>
-      {pool.reviews.map((review, index) => (
-        <div key={index} style={{ marginBottom: '10px' }}>
-          <p><strong>{review.user}:</strong> {review.comment}</p>
-          <p>{renderRatingStars(review.rating)}</p>
-        </div>
-      ))}
+      <div className="mt-6">
+        <h2 className="text-xl font-semibold mb-4">Reviews</h2>
+        {pool.reviews.map((review, index) => (
+          <div key={index} className="mb-4 p-4 bg-gray-100 rounded-md">
+            <p className="font-medium">{review.user}</p>
+            <p className="text-yellow-500">{renderRatingStars(review.rating)}</p>
+            <p className="text-gray-700 mt-1">{review.comment}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
