@@ -56,6 +56,7 @@ export default function Home() {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [availableDate, setAvailableDate] = useState('');
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showMobileFilters, setShowMobileFilters] = useState(false);
   const dropdownRef = useRef(null);
 
   const handleTypeChange = (event) => {
@@ -105,13 +106,37 @@ export default function Home() {
   };
 
   return (
-    <div className="container">
+    <div className="container" style={{ padding: '20px' }}>
       <h1>🏊 Pool Pass</h1>
       <p>Find and book access to pools across the UK</p>
 
-      {/* Filters */}
-      <div className="filters" style={{ marginBottom: '20px' }}>
-        {/* Location Search */}
+      {/* Mobile Filter Toggle */}
+      <div className="mobile-filter-toggle" style={{ marginBottom: '10px', display: 'none' }}>
+        <button
+          onClick={() => setShowMobileFilters(!showMobileFilters)}
+          style={{
+            padding: '8px',
+            borderRadius: '5px',
+            border: '1px solid #ccc',
+            backgroundColor: 'white',
+            cursor: 'pointer',
+          }}
+        >
+          {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
+        </button>
+      </div>
+
+      {/* Filters Section */}
+      <div
+        className="filters"
+        style={{
+          marginBottom: '20px',
+          display: showMobileFilters ? 'block' : 'flex',
+          flexWrap: 'wrap',
+          gap: '10px',
+        }}
+      >
+        {/* Search by Location */}
         <input
           type="text"
           placeholder="Search by Location"
@@ -120,26 +145,23 @@ export default function Home() {
           style={{
             padding: '8px',
             width: '300px',
-            marginRight: '10px',
             borderRadius: '5px',
             border: '1px solid #ccc',
+            flexGrow: 1,
           }}
         />
 
-        {/* Pool Type Dropdown */}
-        <div style={{ position: 'relative', display: 'inline-block' }} ref={dropdownRef}>
+        {/* Pool Type Filter */}
+        <div style={{ position: 'relative' }} ref={dropdownRef}>
           <button
+            onClick={() => setDropdownOpen(!dropdownOpen)}
             style={{
               padding: '8px',
-              marginRight: '10px',
               borderRadius: '5px',
               border: '1px solid #ccc',
-              backgroundColor: '#f9f9f9',
+              backgroundColor: 'white',
               cursor: 'pointer',
-              minWidth: '150px',
-              textAlign: 'left',
             }}
-            onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             Select Pool Type
           </button>
@@ -147,27 +169,28 @@ export default function Home() {
             <div
               style={{
                 position: 'absolute',
-                backgroundColor: '#fff',
-                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-                zIndex: 1000,
+                backgroundColor: 'white',
+                boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
+                zIndex: 1,
                 padding: '10px',
                 borderRadius: '5px',
-                marginTop: '5px',
                 width: '200px',
               }}
             >
               {['Hotel Pool', 'Public Pool', 'Gym Pool', 'Private Pool'].map((type) => (
-                <label key={type} htmlFor={type} style={{ display: 'block', marginBottom: '8px', cursor: 'pointer' }}>
-                  <input
-                    type="checkbox"
-                    id={type}
-                    value={type}
-                    checked={selectedTypes.includes(type)}
-                    onChange={handleTypeChange}
-                    style={{ marginRight: '8px' }}
-                  />
-                  {type}
-                </label>
+                <div key={type} style={{ marginBottom: '10px' }}>
+                  <label htmlFor={type} style={{ cursor: 'pointer', color: '#333' }}>
+                    <input
+                      type="checkbox"
+                      value={type}
+                      checked={selectedTypes.includes(type)}
+                      onChange={handleTypeChange}
+                      id={type}
+                      style={{ marginRight: '10px' }}
+                    />
+                    {type}
+                  </label>
+                </div>
               ))}
             </div>
           )}
@@ -186,7 +209,7 @@ export default function Home() {
         />
       </div>
 
-      {/* Pool Cards */}
+      {/* Display Pools */}
       <div>
         {filteredPools.map((pool) => (
           <div key={pool.id} className="card" style={{ marginBottom: '20px' }}>
@@ -225,6 +248,18 @@ export default function Home() {
           <button>Host Your Pool</button>
         </Link>
       </div>
+
+      <style jsx>{`
+        @media (max-width: 768px) {
+          .filters {
+            display: ${showMobileFilters ? 'block' : 'none'};
+          }
+
+          .mobile-filter-toggle {
+            display: block;
+          }
+        }
+      `}</style>
     </div>
   );
 }
