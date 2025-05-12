@@ -1,29 +1,33 @@
-// Example view details page component (pages/details.js or similar)
+/* View Details Page Styling */
+.details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #333;
+  border-radius: 10px;
+}
 
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+.image-box {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
 
-const ViewDetails = ({ pool }) => {
-  return (
-    <div className="details-container">
-      {/* Image Box */}
-      <div className="image-box">
-        <Image 
-          src={pool.imageUrl} // Replace with dynamic image path
-          alt={pool.name} // Alt text for accessibility
-          width={1200} // Make the image as wide as necessary
-          height={600} // Adjust height for good aspect ratio
-        />
-      </div>
+.details-image {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
 
-      {/* Pool Details Content */}
-      <div className="details-content">
-        <h1>{pool.name}</h1>
-        <p>{pool.description}</p>
-        {/* Add other pool details here */}
-      </div>
-    </div>
-  );
-};
+.details-content h1 {
+  margin-top: 0;
+  font-size: 2rem;
+}
 
-export default ViewDetails;
+.details-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
