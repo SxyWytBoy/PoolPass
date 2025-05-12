@@ -3,8 +3,8 @@
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: #f9f9f9;
-  color: #333;
+  background: #001f3f; /* Deep blue background */
+  color: #fff; /* Light text for contrast */
 }
 
 .container {
@@ -16,6 +16,7 @@ body {
 /* Card style for pools */
 .card {
   background: white;
+  color: #333; /* Ensure text inside cards is dark and readable */
   border-radius: 10px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   padding: 20px;
@@ -58,31 +59,7 @@ input, textarea {
   .container {
     padding: 20px;
   }
-  
+
   .card {
     width: 48%; /* Two cards per row */
-    display: inline-block;
-    margin-right: 4%;
-  }
-
-  .card:nth-child(2n) {
-    margin-right: 0;
-  }
-}
-
-/* Desktop Screens */
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1200px;
-  }
-  
-  .card {
-    width: 30%; /* Three cards per row */
-    display: inline-block;
-    margin-right: 3%;
-  }
-
-  .card:nth-child(3n) {
-    margin-right: 0;
-  }
-}
+    display: in
