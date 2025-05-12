@@ -56,7 +56,6 @@ export default function Home() {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [availableDate, setAvailableDate] = useState('');
 
-  // Update selected types when checkboxes are toggled
   const handleTypeChange = (event) => {
     const value = event.target.value;
     setSelectedTypes((prevSelectedTypes) =>
@@ -66,7 +65,6 @@ export default function Home() {
     );
   };
 
-  // Filter pools based on the search and selected pool types
   const filteredPools = pools.filter((pool) => {
     const matchesLocation = pool.location.toLowerCase().includes(search.toLowerCase());
     const matchesType = selectedTypes.length > 0 ? selectedTypes.includes(pool.type) : true;
@@ -146,14 +144,16 @@ export default function Home() {
             }}
           >
             {['Hotel Pool', 'Public Pool', 'Gym Pool', 'Private Pool'].map((type) => (
-              <div key={type}>
+              <div key={type} style={{ marginBottom: '10px' }}>
                 <input
                   type="checkbox"
                   value={type}
                   checked={selectedTypes.includes(type)}
                   onChange={handleTypeChange}
+                  id={type}
+                  style={{ marginRight: '10px' }}
                 />
-                <label>{type}</label>
+                <label htmlFor={type} style={{ cursor: 'pointer' }}>{type}</label>
               </div>
             ))}
           </div>
