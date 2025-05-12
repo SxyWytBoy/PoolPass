@@ -1,6 +1,6 @@
 // pages/index.js
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 const pools = [
@@ -55,6 +55,8 @@ export default function Home() {
   const [search, setSearch] = useState('');
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [availableDate, setAvailableDate] = useState('');
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
@@ -63,7 +65,18 @@ export default function Home() {
         ? prevSelectedTypes.filter((type) => type !== value)
         : [...prevSelectedTypes, value]
     );
+    setDropdownOpen(false); // close dropdown after selection
   };
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const filteredPools = pools.filter((pool) => {
     const matchesLocation = pool.location.toLowerCase().includes(search.toLowerCase());
@@ -113,50 +126,51 @@ export default function Home() {
             border: '1px solid #ccc',
           }}
         />
-        
+
         {/* Pool Type Filter */}
-        <div style={{ position: 'relative' }}>
+        <div style={{ position: 'relative' }} ref={dropdownRef}>
           <button
             style={{
               padding: '8px',
               marginRight: '10px',
               borderRadius: '5px',
               border: '1px solid #ccc',
+              backgroundColor: 'white',
+              cursor: 'pointer',
             }}
-            onClick={() => {
-              const dropdown = document.getElementById('type-dropdown');
-              dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-            }}
+            onClick={() => setDropdownOpen(!dropdownOpen)}
           >
             Select Pool Type
           </button>
-          <div
-            id="type-dropdown"
-            style={{
-              position: 'absolute',
-              backgroundColor: 'white',
-              boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
-              display: 'none',
-              zIndex: 1,
-              padding: '10px',
-              borderRadius: '5px',
-              width: '200px',
-            }}
-          >
-            {['Hotel Pool', 'Public Pool', 'Gym Pool', 'Private Pool'].map((type) => (
-              <div key={type} style={{ marginBottom: '10px' }}>
-                <input
-                  type="checkbox"
-                  value={type}
-                  checked={selectedTypes.includes(type)}
-                  onChange={handleTypeChange}
-                  id={type}
-                  style={{ marginRight: '10px' }}
-                />
-                <label htmlFor={type} style={{ cursor: 'pointer' }}>{type}</label>
-              </div>
-            ))}
-          </div>
+          {dropdownOpen && (
+            <div
+              style={{
+                position: 'absolute',
+                backgroundColor: 'white',
+                boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
+                zIndex: 1,
+                padding: '10px',
+                borderRadius: '5px',
+                width: '200px',
+              }}
+            >
+              {['Hotel Pool', 'Public Pool', 'Gym Pool', 'Private Pool'].map((type) => (
+                <div key={type} style={{ marginBottom: '10px' }}>
+                  <label htmlFor={type} style={{ cursor: 'pointer' }}>
+                    <input
+                      type="checkbox"
+                      value={type}
+                      checked={selectedTypes.includes(type)}
+                      onChange={handleTypeChange}
+                      id={type}
+                      style={{ marginRight: '10px' }}
+                    />
+                    {type}
+                  </label>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
         {/* Date Picker */}
