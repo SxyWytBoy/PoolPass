@@ -7,68 +7,42 @@ body {
   color: #fff; /* Light text for contrast */
 }
 
+/* Header styling */
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #001f3f; /* Deep blue background */
+}
+
+header img {
+  height: 60px; /* Adjust to the height of your logo */
+  width: auto; /* Maintain aspect ratio */
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+nav a:hover {
+  color: #0070f3; /* Change on hover */
+}
+
+/* Container */
 .container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-}
-
-/* Card style for pools */
-.card {
-  background: white;
-  color: #333; /* Ensure text inside cards is dark and readable */
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  padding: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-}
-
-/* Buttons */
-button {
-  background-color: #0070f3;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  padding: 10px 16px;
-  cursor: pointer;
-  font-size: 16px;
-}
-
-button:hover {
-  background-color: #005dc1;
-}
-
-/* Inputs and text areas */
-input, textarea {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 14px;
-  width: 100%;
-  margin-top: 5px;
-}
-
-/* Enhanced filter/search bar appearance */
-.filters input,
-.filters select {
-  background-color: #fff;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 14px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
-.filters {
-  margin-bottom: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
 }
 
 /* Mobile-First Approach: Default is for mobile devices */
@@ -107,45 +81,5 @@ input, textarea {
 
   .card:nth-child(3n) {
     margin-right: 0;
-  }
-}
-
-/* Styles for images on the "view details" pages */
-.view-details-image {
-  max-width: 100%; /* Ensure image doesn't exceed the container width */
-  height: auto; /* Maintains aspect ratio */
-  border-radius: 10px; /* Optional: Add rounded corners to image */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Optional: Add subtle shadow */
-  display: block; /* Make image a block element */
-  margin: 0 auto 20px; /* Center image and add space below */
-  object-fit: contain; /* Ensures image fits the container */
-  max-height: 600px; /* Optional: Limit the height of the image */
-}
-
-/* Container for images on view details pages */
-.view-details-container {
-  max-width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  text-align: center; /* Center align content inside the container */
-}
-
-/* Mobile-First Approach: Default is for mobile devices */
-.container {
-  padding: 10px;
-}
-
-/* Larger screens (tablets, desktops) */
-@media (min-width: 768px) {
-  .view-details-image {
-    max-width: 80%; /* Limit image size on larger screens */
-    max-height: 500px; /* Optional: Set a max-height to avoid images becoming too large */
-  }
-}
-
-@media (min-width: 1024px) {
-  .view-details-image {
-    max-width: 70%; /* Limit image size on larger screens */
-    max-height: 600px; /* Optional: Limit height */
   }
 }
