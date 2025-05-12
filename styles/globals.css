@@ -1,107 +1,29 @@
-/* globals.css */
+// Example view details page component (pages/details.js or similar)
 
-body {
-  margin: 0;
-  font-family: 'Poppins', sans-serif;
-  background: #001f3f; /* Deep blue background */
-  color: #fff; /* Light text for contrast */
-}
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-/* Reset default link behavior */
-a {
-  text-decoration: none;
-  color: inherit; /* Ensures that links inherit the font color */
-}
+const ViewDetails = ({ pool }) => {
+  return (
+    <div className="details-container">
+      {/* Image Box */}
+      <div className="image-box">
+        <Image 
+          src={pool.imageUrl} // Replace with dynamic image path
+          alt={pool.name} // Alt text for accessibility
+          width={1200} // Make the image as wide as necessary
+          height={600} // Adjust height for good aspect ratio
+        />
+      </div>
 
-/* Header styling */
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background-color: #001f3f; /* Deep blue background */
-  position: relative;
-  width: 100%; /* Ensure it spans the full width */
-  gap: 15px; /* Adjust space between logo and text */
-}
+      {/* Pool Details Content */}
+      <div className="details-content">
+        <h1>{pool.name}</h1>
+        <p>{pool.description}</p>
+        {/* Add other pool details here */}
+      </div>
+    </div>
+  );
+};
 
-/* Logo Styling */
-header img {
-  height: 80px; /* Increase the size of the logo */
-  width: auto; /* Maintain aspect ratio */
-}
-
-/* Header Text Styling */
-header h1 {
-  font-size: 2rem; /* Increase font size for the header */
-  color: #fff;
-  margin: 0; /* Remove default margin for better alignment */
-  font-weight: bold;
-}
-
-/* Navigation Styling */
-nav {
-  display: flex;
-  gap: 20px; /* Space between each navigation item */
-  align-items: center;
-}
-
-nav a {
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  padding: 10px 15px; /* Add padding for clickable areas */
-  border-radius: 4px; /* Smooth the edges of links */
-  transition: background-color 0.3s ease; /* Add a smooth hover effect */
-}
-
-nav a:hover {
-  color: #0070f3; /* Change text color on hover */
-  background-color: rgba(0, 112, 243, 0.1); /* Subtle hover effect */
-}
-
-/* Container */
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-/* Mobile-First Approach: Default is for mobile devices */
-.container {
-  padding: 10px;
-}
-
-/* Larger screens (tablets, desktops) */
-@media (min-width: 768px) {
-  .container {
-    padding: 20px;
-  }
-
-  .card {
-    width: 48%; /* Two cards per row */
-    display: inline-block;
-    margin-right: 4%;
-  }
-
-  .card:nth-child(2n) {
-    margin-right: 0;
-  }
-}
-
-/* Desktop Screens */
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1200px;
-  }
-
-  .card {
-    width: 30%; /* Three cards per row */
-    display: inline-block;
-    margin-right: 3%;
-  }
-
-  .card:nth-child(3n) {
-    margin-right: 0;
-  }
-}
+export default ViewDetails;
