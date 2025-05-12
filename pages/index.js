@@ -65,7 +65,6 @@ export default function Home() {
         ? prevSelectedTypes.filter((type) => type !== value)
         : [...prevSelectedTypes, value]
     );
-    setDropdownOpen(false); // close dropdown after selection
   };
 
   useEffect(() => {
@@ -110,9 +109,9 @@ export default function Home() {
       <h1>🏊 Pool Pass</h1>
       <p>Find and book access to pools across the UK</p>
 
-      {/* Search and Filter UI */}
+      {/* Filters */}
       <div className="filters" style={{ marginBottom: '20px' }}>
-        {/* Search by Location */}
+        {/* Location Search */}
         <input
           type="text"
           placeholder="Search by Location"
@@ -127,16 +126,18 @@ export default function Home() {
           }}
         />
 
-        {/* Pool Type Filter */}
-        <div style={{ position: 'relative' }} ref={dropdownRef}>
+        {/* Pool Type Dropdown */}
+        <div style={{ position: 'relative', display: 'inline-block' }} ref={dropdownRef}>
           <button
             style={{
               padding: '8px',
               marginRight: '10px',
               borderRadius: '5px',
               border: '1px solid #ccc',
-              backgroundColor: 'white',
+              backgroundColor: '#f9f9f9',
               cursor: 'pointer',
+              minWidth: '150px',
+              textAlign: 'left',
             }}
             onClick={() => setDropdownOpen(!dropdownOpen)}
           >
@@ -146,28 +147,27 @@ export default function Home() {
             <div
               style={{
                 position: 'absolute',
-                backgroundColor: 'white',
-                boxShadow: '0px 8px 16px rgba(0, 0, 0, 0.2)',
-                zIndex: 1,
+                backgroundColor: '#fff',
+                boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+                zIndex: 1000,
                 padding: '10px',
                 borderRadius: '5px',
+                marginTop: '5px',
                 width: '200px',
               }}
             >
               {['Hotel Pool', 'Public Pool', 'Gym Pool', 'Private Pool'].map((type) => (
-                <div key={type} style={{ marginBottom: '10px' }}>
-                  <label htmlFor={type} style={{ cursor: 'pointer' }}>
-                    <input
-                      type="checkbox"
-                      value={type}
-                      checked={selectedTypes.includes(type)}
-                      onChange={handleTypeChange}
-                      id={type}
-                      style={{ marginRight: '10px' }}
-                    />
-                    {type}
-                  </label>
-                </div>
+                <label key={type} htmlFor={type} style={{ display: 'block', marginBottom: '8px', cursor: 'pointer' }}>
+                  <input
+                    type="checkbox"
+                    id={type}
+                    value={type}
+                    checked={selectedTypes.includes(type)}
+                    onChange={handleTypeChange}
+                    style={{ marginRight: '8px' }}
+                  />
+                  {type}
+                </label>
               ))}
             </div>
           )}
@@ -186,7 +186,7 @@ export default function Home() {
         />
       </div>
 
-      {/* Display Pools */}
+      {/* Pool Cards */}
       <div>
         {filteredPools.map((pool) => (
           <div key={pool.id} className="card" style={{ marginBottom: '20px' }}>
