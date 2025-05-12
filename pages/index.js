@@ -1,60 +1,31 @@
 // pages/index.js
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import { useRouter } from 'next/router'; // ✅ Added to detect query param
 
 const pools = [
-  {
-    id: 1,
-    name: 'Luxury Hotel Pool',
-    location: 'London',
-    price: '£25',
-    description: 'Access to rooftop infinity pool with towels included.',
-    type: 'Hotel Pool',
-    image: '/images/luxury-pool.jpg',
-    availableDates: ['2025-05-15', '2025-05-16'],
-    rating: 4.5,
-    reviews: [
-      { user: 'John Doe', comment: 'Amazing experience, highly recommended!', rating: 5 },
-      { user: 'Jane Smith', comment: 'Lovely pool, but a bit crowded.', rating: 4 },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Countryside B&B Pool',
-    location: 'Somerset',
-    price: '£15',
-    description: 'Peaceful outdoor pool with countryside views.',
-    type: 'Public Pool',
-    image: '/images/countryside-pool.jpeg',
-    availableDates: ['2025-05-14', '2025-05-18'],
-    rating: 3.8,
-    reviews: [
-      { user: 'Alice Brown', comment: 'A relaxing place to unwind!', rating: 4 },
-      { user: 'Bob White', comment: 'Great view, but the pool could be cleaner.', rating: 3 },
-    ],
-  },
-  {
-    id: 3,
-    name: 'City Gym Pool',
-    location: 'Manchester',
-    price: '£10',
-    description: 'Indoor heated pool at modern fitness center.',
-    type: 'Gym Pool',
-    image: '/images/city-gym-pool.jpg',
-    availableDates: ['2025-05-10', '2025-05-12'],
-    rating: 4.2,
-    reviews: [
-      { user: 'Sarah Green', comment: 'Nice pool but a little too small for my liking.', rating: 3 },
-      { user: 'Tom Clark', comment: 'Great for a quick swim after the gym!', rating: 5 },
-    ],
-  },
+  // ... your existing pool objects
 ];
 
 export default function Home() {
   const [search, setSearch] = useState('');
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [availableDate, setAvailableDate] = useState('');
+  const [showSuccess, setShowSuccess] = useState(false); // ✅
+  const router = useRouter(); // ✅
+
+  useEffect(() => {
+    if (router.query.submitted === 'true') {
+      setShowSuccess(true);
+      // Hide message after 4 seconds
+      setTimeout(() => {
+        setShowSuccess(false);
+        // Clean URL by removing query param
+        router.replace('/', undefined, { shallow: true });
+      }, 4000);
+    }
+  }, [router]);
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
@@ -97,6 +68,20 @@ export default function Home() {
       <h1>🏊 Pool Pass</h1>
       <p>Find and book access to pools across the UK</p>
 
+      {/* ✅ Success Message */}
+      {showSuccess && (
+        <div style={{
+          backgroundColor: '#d4edda',
+          color: '#155724',
+          padding: '12px',
+          borderRadius: '5px',
+          border: '1px solid #c3e6cb',
+          marginBottom: '20px',
+        }}>
+          ✅ Your pool has been submitted successfully!
+        </div>
+      )}
+
       {/* Search and Filter UI */}
       <div className="filters" style={{ marginBottom: '20px' }}>
         {/* Search by Location */}
@@ -113,7 +98,7 @@ export default function Home() {
             border: '1px solid #ccc',
           }}
         />
-        
+
         {/* Pool Type Filter */}
         <div style={{ position: 'relative' }}>
           <button
