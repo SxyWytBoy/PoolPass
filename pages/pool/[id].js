@@ -55,10 +55,13 @@ export default function PoolDetail() {
   const router = useRouter();
   const { id } = router.query;
 
+  // Prevent rendering before id is available
+  if (!id) return null;
+
   const pool = pools.find((p) => p.id === parseInt(id));
 
   if (!pool) {
-    return <p className="p-8 text-gray-600">Loading...</p>;
+    return <p className="p-8 text-gray-600">Pool not found.</p>;
   }
 
   const renderRatingStars = (rating) => {
@@ -103,7 +106,7 @@ export default function PoolDetail() {
 
         {/* Book Button */}
         <Link href={`/booking?poolId=${pool.id}`}>
-          <button className="mt-4 bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition duration-200">
+          <button className="w-full bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition duration-200 text-lg font-medium mt-4">
             Book your PoolPass
           </button>
         </Link>
