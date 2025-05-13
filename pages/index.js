@@ -52,46 +52,17 @@ const pools = [
 
 export default function Home() {
   const [search, setSearch] = useState('');
+  const [selectedTypes, setSelectedTypes] = useState([]);
   const [availableDate, setAvailableDate] = useState('');
   const [guests, setGuests] = useState(1);
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [selectedTypes, setSelectedTypes] = useState([]);
-  const [selectedAmenities, setSelectedAmenities] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const dropdownRef = useRef(null);
-
-  const amenities = [
-    'Heated pool',
-    'Hot tub',
-    'Loungers',
-    'Towels provided',
-    'Changing rooms',
-    'Food/drinks available',
-    'Wi-Fi',
-    'Parking',
-  ];
-
-  const poolTypes = [
-    'Hotel Pool',
-    'Private Pool',
-    'Airbnb-style',
-    'Indoor',
-    'Outdoor',
-    'Public Pool',
-    'Gym Pool',
-  ];
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
     setSelectedTypes((prev) =>
       prev.includes(value) ? prev.filter((type) => type !== value) : [...prev, value]
-    );
-  };
-
-  const handleAmenityChange = (event) => {
-    const value = event.target.value;
-    setSelectedAmenities((prev) =>
-      prev.includes(value) ? prev.filter((a) => a !== value) : [...prev, value]
     );
   };
 
@@ -107,9 +78,9 @@ export default function Home() {
 
   const filteredPools = pools.filter((pool) => {
     const matchesLocation = pool.location.toLowerCase().includes(search.toLowerCase());
-    const matchesDate = availableDate ? pool.availableDates.includes(availableDate) : true;
     const matchesType = selectedTypes.length > 0 ? selectedTypes.includes(pool.type) : true;
-    return matchesLocation && matchesDate && matchesType;
+    const matchesDate = availableDate ? pool.availableDates.includes(availableDate) : true;
+    return matchesLocation && matchesType && matchesDate;
   });
 
   const renderRatingStars = (rating) => {
@@ -125,14 +96,13 @@ export default function Home() {
   };
 
   const buttonStyle = {
-    padding: '10px 14px',
+    padding: '8px 12px',
     borderRadius: '5px',
     border: 'none',
     backgroundColor: '#0070f3',
     color: 'white',
     cursor: 'pointer',
     fontWeight: '500',
-    fontSize: '1rem',
   };
 
   return (
@@ -141,145 +111,80 @@ export default function Home() {
       <p>Find and book access to pools across the UK</p>
 
       {/* Basic Search Options */}
-      <div style={{ marginBottom: '20px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
         <input
           type="text"
-          placeholder="Search by Location or Postcode"
+          placeholder="Search by postcode, city, area"
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          style={{
-            padding: '10px',
-            borderRadius: '5px',
-            border: '1px solid #555',
-            backgroundColor: '#fff',
-            color: '#000',
-            flexGrow: 1,
-            minWidth: '200px',
-            fontSize: '1rem',
-          }}
+          style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc', width: '250px' }}
         />
+        <button
+          onClick={() => alert('Using current location...')}
+          style={{ ...buttonStyle, backgroundColor: '#444' }}
+        >
+          Use my location
+        </button>
         <input
           type="date"
           value={availableDate}
           onChange={(e) => setAvailableDate(e.target.value)}
-          style={{
-            padding: '10px',
-            borderRadius: '5px',
-            border: '1px solid #555',
-            backgroundColor: '#fff',
-            color: '#000',
-            fontSize: '1rem',
-          }}
+          style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
         />
         <select
           value={guests}
           onChange={(e) => setGuests(Number(e.target.value))}
-          style={{
-            padding: '10px',
-            borderRadius: '5px',
-            border: '1px solid #555',
-            backgroundColor: '#fff',
-            color: '#000',
-            fontSize: '1rem',
-          }}
+          style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
         >
-          {Array.from({ length: 10 }, (_, i) => i + 1).map((num) => (
-            <option key={num} value={num}>
-              {num} {num === 10 ? '+' : ''}
-            </option>
+          {[...Array(10)].map((_, i) => (
+            <option key={i + 1} value={i + 1}>{i + 1} guest{i > 0 && 's'}</option>
           ))}
+          <option value={11}>10+ guests</option>
         </select>
         <button onClick={() => setShowAdvanced(!showAdvanced)} style={buttonStyle}>
-          {showAdvanced ? 'Hide Advanced Filters' : 'Show Advanced Filters'}
+          {showAdvanced ? 'Hide' : 'Show'} Advanced Filters
         </button>
       </div>
 
       {/* Advanced Filters */}
       {showAdvanced && (
-        <div
-          className="advanced-filters"
-          style={{
-            backgroundColor: '#f9f9f9',
-            borderRadius: '10px',
-            padding: '15px',
-            marginBottom: '20px',
-          }}
-        >
+        <div style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '10px' }}>
           <h3>Advanced Filters</h3>
 
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px' }}>
-            {/* Amenities */}
-            <div>
-              <strong>Amenities:</strong>
-              {amenities.map((a) => (
-                <label
-                  key={a}
-                  style={{
-                    display: 'block',
-                    cursor: 'pointer',
-                    color: '#000',
-                    fontWeight: '500',
-                    backgroundColor: '#f1f1f1',
-                    padding: '5px 8px',
-                    borderRadius: '5px',
-                    marginBottom: '5px',
-                  }}
-                >
-                  <input
-                    type="checkbox"
-                    value={a}
-                    checked={selectedAmenities.includes(a)}
-                    onChange={handleAmenityChange}
-                    style={{ marginRight: '10px' }}
-                  />
-                  {a}
-                </label>
-              ))}
-            </div>
-
-            {/* Pool Type */}
-            <div>
-              <strong>Pool Type:</strong>
-              {poolTypes.map((type) => (
-                <label
-                  key={type}
-                  style={{
-                    display: 'block',
-                    cursor: 'pointer',
-                    color: '#000',
-                    fontWeight: '500',
-                    backgroundColor: '#f1f1f1',
-                    padding: '5px 8px',
-                    borderRadius: '5px',
-                    marginBottom: '5px',
-                  }}
-                >
+          {/* Pool Type */}
+          <div ref={dropdownRef} style={{ marginBottom: '10px' }}>
+            <strong>Pool Type:</strong>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '8px' }}>
+              {['Hotel Pool', 'Public Pool', 'Gym Pool', 'Private Pool'].map((type) => (
+                <label key={type} style={{ backgroundColor: '#f1f1f1', padding: '6px 10px', borderRadius: '5px', color: '#333' }}>
                   <input
                     type="checkbox"
                     value={type}
                     checked={selectedTypes.includes(type)}
                     onChange={handleTypeChange}
-                    style={{ marginRight: '10px' }}
+                    style={{ marginRight: '6px' }}
                   />
                   {type}
                 </label>
               ))}
             </div>
           </div>
+
+          {/* Amenities, Price Range, etc. can be added here in future */}
         </div>
       )}
 
       {/* Pool Listings */}
       <div>
         {filteredPools.map((pool) => (
-          <div key={pool.id} className="card" style={{ marginBottom: '20px' }}>
-            <div style={{ position: 'relative', width: '100%', height: '200px', marginBottom: '15px' }}>
+          <div key={pool.id} className="card" style={{ marginBottom: '30px' }}>
+            <div style={{ width: '100%', height: 'auto', marginBottom: '15px' }}>
               <Image
                 src={pool.image}
                 alt={pool.name}
-                layout="fill"
-                objectFit="cover"
-                style={{ borderRadius: '10px' }}
+                width={600}
+                height={300}
+                style={{ borderRadius: '10px', objectFit: 'cover', width: '100%', height: 'auto' }}
               />
             </div>
             <h2>{pool.name}</h2>
@@ -303,12 +208,17 @@ export default function Home() {
         ))}
       </div>
 
-      {/* Host Call To Action */}
       <div style={{ marginTop: '30px', textAlign: 'center' }}>
         <Link href="/host">
           <button style={buttonStyle}>Host Your Pool</button>
         </Link>
       </div>
+
+      <style jsx>{`
+        button:hover {
+          background-color: #005ac1;
+        }
+      `}</style>
     </div>
   );
 }
