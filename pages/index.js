@@ -1,191 +1,229 @@
-// pages/index.js
-import Link from 'next/link';
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
+  {/* Basic Search Options */}
+  <div className="basic-filters" style={{ marginBottom: '20px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+    {/* Location */}
+    <input
+      type="text"
+      placeholder="Enter postcode, city, or area"
+      value={search}
+      onChange={(e) => setSearch(e.target.value)}
+      style={{
+        padding: '8px',
+        width: '300px',
+        borderRadius: '5px',
+        border: '1px solid #ccc',
+        flexGrow: 1,
+      }}
+    />
+    <button
+      onClick={() => alert("Getting current location...")}
+      style={buttonStyle}
+    >
+      📍 Use My Location
+    </button>
 
-const Home = () => {
-  const [search, setSearch] = useState('');
-  const [selectedDate, setSelectedDate] = useState('');
-  const [guests, setGuests] = useState(1);
-  const [showAdvancedFilters, setShowAdvancedFilters] = useState(false);
-  const [userLocation, setUserLocation] = useState('');
+    {/* Date Picker */}
+    <input
+      type="date"
+      value={availableDate}
+      onChange={(e) => setAvailableDate(e.target.value)}
+      style={{
+        padding: '8px',
+        borderRadius: '5px',
+        border: '1px solid #ccc',
+      }}
+    />
 
-  const handleUseMyLocation = () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        const { latitude, longitude } = position.coords;
-        setUserLocation(`Lat: ${latitude.toFixed(2)}, Lon: ${longitude.toFixed(2)}`);
-      });
-    } else {
-      alert('Geolocation not supported.');
-    }
-  };
+    {/* Guests Selector */}
+    <select
+      value={guests}
+      onChange={(e) => setGuests(parseInt(e.target.value))}
+      style={{
+        padding: '8px',
+        borderRadius: '5px',
+        border: '1px solid #ccc',
+      }}
+    >
+      {[...Array(10).keys()].map((num) => (
+        <option key={num + 1} value={num + 1}>
+          {num + 1} {num === 0 ? 'guest' : 'guests'}
+        </option>
+      ))}
+      <option value={11}>10+ guests</option>
+    </select>
 
-  const locations = ['London', 'Manchester', 'Somerset', 'Liverpool', 'Bristol'];
+    {/* Toggle Advanced Filters */}
+    <button
+      onClick={() => setShowAdvancedFilters(!showAdvancedFilters)}
+      style={buttonStyle}
+    >
+      {showAdvancedFilters ? 'Hide Advanced Filters' : 'Show Advanced Filters'}
+    </button>
+  </div>
 
-  const buttonStyle = {
-    padding: '8px 12px',
-    borderRadius: '5px',
-    border: 'none',
-    backgroundColor: '#0070f3',
-    color: 'white',
-    cursor: 'pointer',
-    fontWeight: '500',
-  };
-
-  return (
-    <div className="container" style={{ padding: '20px' }}>
-      <h1>🏊 Pool Pass</h1>
-      <p>Find and book access to pools across the UK</p>
-
-      {/* ✅ Basic Search Filters */}
-      <div className="basic-filters" style={{ marginBottom: '20px', display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-        {/* 📍 Location Search */}
-        <div>
-          <input
-            list="location-options"
-            placeholder="Search by postcode, city, area"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{ padding: '8px', width: '220px', borderRadius: '5px', border: '1px solid #ccc' }}
-          />
-          <datalist id="location-options">
-            {locations.map((loc, idx) => <option key={idx} value={loc} />)}
-          </datalist>
-        </div>
-
-        {/* 📍 Use Current Location */}
-        <button onClick={handleUseMyLocation} style={buttonStyle}>
-          Use my current location
-        </button>
-        {userLocation && <span style={{ marginTop: '8px', fontStyle: 'italic' }}>{userLocation}</span>}
-
-        {/* 📅 Date Picker */}
-        <input
-          type="date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
-        />
-
-        {/* 👥 Number of Guests */}
-        <select
-          value={guests}
-          onChange={(e) => setGuests(Number(e.target.value))}
-          style={{ padding: '8px', borderRadius: '5px', border: '1px solid #ccc' }}
-        >
-          {[...Array(10)].map((_, i) => (
-            <option key={i} value={i + 1}>
-              {i + 1} guest{i > 0 ? 's' : ''}
-            </option>
-          ))}
-          <option value="10+">10+</option>
-        </select>
+  {/* Advanced Filters */}
+  {showAdvancedFilters && (
+    <div
+      className="advanced-filters"
+      style={{
+        padding: '15px',
+        border: '1px solid #ddd',
+        borderRadius: '8px',
+        marginBottom: '20px',
+        backgroundColor: '#f9f9f9',
+      }}
+    >
+      {/* Amenities */}
+      <div>
+        <strong>Amenities:</strong>
+        {['Heated pool', 'Hot tub', 'Loungers', 'Towels provided', 'Changing rooms', 'Food/drinks available', 'Wi-Fi', 'Parking'].map((a) => (
+          <label key={a} style={{ marginRight: '10px' }}>
+            <input
+              type="checkbox"
+              value={a}
+              checked={amenities.includes(a)}
+              onChange={handleAmenityChange}
+            />{' '}
+            {a}
+          </label>
+        ))}
       </div>
 
-      {/* 🔧 Advanced Filters Toggle */}
-      <button onClick={() => setShowAdvancedFilters(!showAdvancedFilters)} style={{ ...buttonStyle, marginBottom: '10px' }}>
-        {showAdvancedFilters ? 'Hide Advanced Filters' : 'Show Advanced Filters'}
-      </button>
+      {/* Pool Type */}
+      <div>
+        <strong>Pool Type:</strong>
+        {['Hotel Pool', 'Private Pool', 'Airbnb-style', 'Indoor', 'Outdoor'].map((type) => (
+          <label key={type} style={{ marginRight: '10px' }}>
+            <input
+              type="checkbox"
+              value={type}
+              checked={selectedTypes.includes(type)}
+              onChange={handleTypeChange}
+            />{' '}
+            {type}
+          </label>
+        ))}
+      </div>
 
-      {/* 🔧 Advanced Filters Section */}
-      {showAdvancedFilters && (
-        <div style={{ border: '1px solid #ccc', borderRadius: '10px', padding: '15px', marginBottom: '20px' }}>
-          <h3>Advanced Filters</h3>
+      {/* Price Range */}
+      <div>
+        <strong>Price Range (£):</strong>
+        <input
+          type="number"
+          placeholder="Min"
+          value={priceRange.min}
+          onChange={(e) => setPriceRange({ ...priceRange, min: e.target.value })}
+          style={{ width: '80px', marginRight: '5px' }}
+        />
+        -
+        <input
+          type="number"
+          placeholder="Max"
+          value={priceRange.max}
+          onChange={(e) => setPriceRange({ ...priceRange, max: e.target.value })}
+          style={{ width: '80px', marginLeft: '5px' }}
+        />
+      </div>
 
-          {/* ✅ Amenities */}
-          <fieldset>
-            <legend>Amenities</legend>
-            {['Heated pool', 'Hot tub', 'Loungers', 'Towels provided', 'Changing rooms', 'Food/drinks available', 'Wi-Fi', 'Parking'].map((amenity, i) => (
-              <label key={i} style={{ display: 'block', marginBottom: '5px' }}>
-                <input type="checkbox" style={{ marginRight: '8px' }} />
-                {amenity}
-              </label>
-            ))}
-          </fieldset>
+      {/* Time of Day */}
+      <div>
+        <strong>Time of Day:</strong>
+        {['Morning', 'Afternoon', 'Evening'].map((t) => (
+          <label key={t} style={{ marginRight: '10px' }}>
+            <input
+              type="radio"
+              name="timeofday"
+              value={t}
+              checked={timeOfDay === t}
+              onChange={() => setTimeOfDay(t)}
+            />{' '}
+            {t}
+          </label>
+        ))}
+      </div>
 
-          {/* 🏊 Pool Type */}
-          <fieldset>
-            <legend>Pool Type</legend>
-            {['Hotel', 'Private home', 'Airbnb-style', 'Indoor', 'Outdoor'].map((type, i) => (
-              <label key={i} style={{ display: 'block', marginBottom: '5px' }}>
-                <input type="checkbox" style={{ marginRight: '8px' }} />
-                {type}
-              </label>
-            ))}
-          </fieldset>
+      {/* Add-ons */}
+      <div>
+        <strong>Add-ons:</strong>
+        {['Food packages', 'Day beds', 'Alcohol', 'Kids’ area'].map((addon) => (
+          <label key={addon} style={{ marginRight: '10px' }}>
+            <input
+              type="checkbox"
+              value={addon}
+              checked={addons.includes(addon)}
+              onChange={handleAddonChange}
+            />{' '}
+            {addon}
+          </label>
+        ))}
+      </div>
 
-          {/* 💷 Price Range */}
-          <fieldset>
-            <legend>Price Range (£)</legend>
-            <input type="number" placeholder="Min" style={{ marginRight: '10px', padding: '5px' }} />
-            <input type="number" placeholder="Max" style={{ padding: '5px' }} />
-          </fieldset>
+      {/* Accessibility */}
+      <div>
+        <strong>Accessibility:</strong>
+        {['Wheelchair access', 'Step-free access', 'Baby changing'].map((item) => (
+          <label key={item} style={{ marginRight: '10px' }}>
+            <input
+              type="checkbox"
+              value={item}
+              checked={accessibility.includes(item)}
+              onChange={handleAccessibilityChange}
+            />{' '}
+            {item}
+          </label>
+        ))}
+      </div>
 
-          {/* 🕒 Time of Day */}
-          <fieldset>
-            <legend>Time of Day</legend>
-            {['Morning', 'Afternoon', 'Evening'].map((slot, i) => (
-              <label key={i} style={{ marginRight: '15px' }}>
-                <input type="radio" name="timeOfDay" style={{ marginRight: '5px' }} />
-                {slot}
-              </label>
-            ))}
-          </fieldset>
+      {/* Pet Friendly */}
+      <div>
+        <label>
+          <input
+            type="checkbox"
+            checked={petFriendlyOnly}
+            onChange={(e) => setPetFriendlyOnly(e.target.checked)}
+          />{' '}
+          Show pet-friendly pools only
+        </label>
+      </div>
+    </div>
+  )}
 
-          {/* ➕ Add-ons */}
-          <fieldset>
-            <legend>Add-ons</legend>
-            {['Food packages', 'Day beds', 'Alcohol', 'Kids’ area'].map((addon, i) => (
-              <label key={i} style={{ display: 'block', marginBottom: '5px' }}>
-                <input type="checkbox" style={{ marginRight: '8px' }} />
-                {addon}
-              </label>
-            ))}
-          </fieldset>
-
-          {/* ♿ Accessibility */}
-          <fieldset>
-            <legend>Accessibility</legend>
-            {['Wheelchair access', 'Step-free access', 'Baby changing'].map((acc, i) => (
-              <label key={i} style={{ display: 'block', marginBottom: '5px' }}>
-                <input type="checkbox" style={{ marginRight: '8px' }} />
-                {acc}
-              </label>
-            ))}
-          </fieldset>
-
-          {/* 🐶 Pet-Friendly */}
-          <fieldset>
-            <legend>Pet-Friendly</legend>
-            <label>
-              <input type="checkbox" style={{ marginRight: '8px' }} />
-              Show pet-friendly pools only
-            </label>
-          </fieldset>
+  {/* Display Pools */}
+  <div>
+    {filteredPools.map((pool) => (
+      <div key={pool.id} className="card" style={{ marginBottom: '20px' }}>
+        <div style={{ position: 'relative', width: '100%', height: '200px', marginBottom: '15px' }}>
+          <Image
+            src={pool.image}
+            alt={pool.name}
+            layout="fill"
+            objectFit="cover"
+            style={{ borderRadius: '10px' }}
+          />
         </div>
-      )}
-
-      {/* Example Button: Replace this with filtered pool results logic */}
-      <div style={{ marginTop: '30px', textAlign: 'center' }}>
-        <Link href="/host">
-          <button style={buttonStyle}>Host Your Pool</button>
+        <h2>{pool.name}</h2>
+        <p><strong>Location:</strong> {pool.location}</p>
+        <p><strong>Price:</strong> {pool.price}</p>
+        <p>{pool.description}</p>
+        <p><strong>Rating:</strong> {renderRatingStars(pool.rating)}</p>
+        <div>
+          <strong>Reviews:</strong>
+          {pool.reviews.map((review, index) => (
+            <div key={index} style={{ marginBottom: '10px' }}>
+              <p><strong>{review.user}</strong>: {review.comment}</p>
+              <p>{renderRatingStars(review.rating)}</p>
+            </div>
+          ))}
+        </div>
+        <Link href={`/pool/${pool.id}`}>
+          <button style={{ ...buttonStyle, marginTop: '10px' }}>View Details</button>
         </Link>
       </div>
+    ))}
+  </div>
 
-      <style jsx>{`
-        @media (max-width: 768px) {
-          .basic-filters {
-            flex-direction: column;
-          }
-
-          button:hover {
-            background-color: #005ac1;
-          }
-        }
-      `}</style>
-    </div>
-  );
-};
-
-export default Home;
+  <div style={{ marginTop: '30px', textAlign: 'center' }}>
+    <Link href="/host">
+      <button style={buttonStyle}>Host Your Pool</button>
+    </Link>
+  </div>
+</div>
