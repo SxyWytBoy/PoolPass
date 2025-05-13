@@ -61,10 +61,8 @@ export default function Home() {
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
-    setSelectedTypes((prevSelectedTypes) =>
-      prevSelectedTypes.includes(value)
-        ? prevSelectedTypes.filter((type) => type !== value)
-        : [...prevSelectedTypes, value]
+    setSelectedTypes((prev) =>
+      prev.includes(value) ? prev.filter((type) => type !== value) : [...prev, value]
     );
   };
 
@@ -90,19 +88,26 @@ export default function Home() {
     const halfStars = rating % 1 !== 0;
     let stars = [];
 
-    for (let i = 0; i < fullStars; i++) {
-      stars.push('★');
-    }
-
-    if (halfStars) {
-      stars.push('☆');
-    }
-
-    while (stars.length < 5) {
-      stars.push('☆');
-    }
+    for (let i = 0; i < fullStars; i++) stars.push('★');
+    if (halfStars) stars.push('☆');
+    while (stars.length < 5) stars.push('☆');
 
     return stars.join(' ');
+  };
+
+  const buttonStyle = {
+    padding: '8px 12px',
+    borderRadius: '5px',
+    border: 'none',
+    backgroundColor: '#0070f3',
+    color: 'white',
+    cursor: 'pointer',
+    fontWeight: '500',
+  };
+
+  const buttonHoverStyle = {
+    ...buttonStyle,
+    backgroundColor: '#005ac1',
   };
 
   return (
@@ -114,13 +119,7 @@ export default function Home() {
       <div className="mobile-filter-toggle" style={{ marginBottom: '10px', display: 'none' }}>
         <button
           onClick={() => setShowMobileFilters(!showMobileFilters)}
-          style={{
-            padding: '8px',
-            borderRadius: '5px',
-            border: '1px solid #ccc',
-            backgroundColor: 'white',
-            cursor: 'pointer',
-          }}
+          style={buttonStyle}
         >
           {showMobileFilters ? 'Hide Filters' : 'Show Filters'}
         </button>
@@ -136,7 +135,6 @@ export default function Home() {
           gap: '10px',
         }}
       >
-        {/* Search by Location */}
         <input
           type="text"
           placeholder="Search by Location"
@@ -155,13 +153,7 @@ export default function Home() {
         <div style={{ position: 'relative' }} ref={dropdownRef}>
           <button
             onClick={() => setDropdownOpen(!dropdownOpen)}
-            style={{
-              padding: '8px',
-              borderRadius: '5px',
-              border: '1px solid #ccc',
-              backgroundColor: 'white',
-              cursor: 'pointer',
-            }}
+            style={buttonStyle}
           >
             Select Pool Type
           </button>
@@ -237,7 +229,7 @@ export default function Home() {
               ))}
             </div>
             <Link href={`/pool/${pool.id}`}>
-              <button style={{ marginTop: '10px' }}>View Details</button>
+              <button style={{ ...buttonStyle, marginTop: '10px' }}>View Details</button>
             </Link>
           </div>
         ))}
@@ -245,7 +237,7 @@ export default function Home() {
 
       <div style={{ marginTop: '30px', textAlign: 'center' }}>
         <Link href="/host">
-          <button>Host Your Pool</button>
+          <button style={buttonStyle}>Host Your Pool</button>
         </Link>
       </div>
 
@@ -257,6 +249,10 @@ export default function Home() {
 
           .mobile-filter-toggle {
             display: block;
+          }
+
+          button:hover {
+            background-color: #005ac1;
           }
         }
       `}</style>
