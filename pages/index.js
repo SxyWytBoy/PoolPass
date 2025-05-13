@@ -107,25 +107,32 @@ export default function Home() {
 
   return (
     <div className="container" style={{ padding: '20px' }}>
-      {/* Header with Logo and Banner */}
-      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
-        <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '150px', paddingRight: '20px' }}>
-          <h1 style={{ margin: 0 }}>🏊 Pool Pass</h1>
-          <p style={{ margin: 0 }}>Find and book access to pools across the UK</p>
-        </div>
-        <div style={{ flexGrow: 1 }}>
-          <Image
-            src="/images/PoolPass Banner.jpg"
-            alt="Pool Pass Banner"
-            width={0}
-            height={0}
-            sizes="100vw"
-            style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px' }}
-          />
-        </div>
+      {/* Logo + Banner */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
+        <Image
+          src="/images/PoolPass Logo.jpeg"
+          alt="Pool Pass Logo"
+          width={120}
+          height={120}
+          style={{ borderRadius: '10px', objectFit: 'contain' }}
+        />
+        <Image
+          src="/images/PoolPass Banner.jpg"
+          alt="Pool Pass Banner"
+          width={0}
+          height={0}
+          sizes="100vw"
+          style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px' }}
+        />
       </div>
 
-      {/* Basic Search Options */}
+      {/* Header */}
+      <div style={{ marginBottom: '30px' }}>
+        <h1 style={{ margin: 0 }}>🏊 Pool Pass</h1>
+        <p style={{ margin: 0 }}>Find and book access to pools across the UK</p>
+      </div>
+
+      {/* Basic Filters */}
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginBottom: '20px' }}>
         <input
           type="text"
@@ -165,8 +172,6 @@ export default function Home() {
       {showAdvanced && (
         <div style={{ marginBottom: '20px', padding: '10px', border: '1px solid #ccc', borderRadius: '10px' }}>
           <h3>Advanced Filters</h3>
-
-          {/* Pool Type */}
           <div ref={dropdownRef} style={{ marginBottom: '10px' }}>
             <strong>Pool Type:</strong>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px', marginTop: '8px' }}>
@@ -187,7 +192,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Pool Listings */}
+      {/* Listings */}
       <div>
         {filteredPools.map((pool) => (
           <div key={pool.id} className="card" style={{ marginBottom: '30px' }}>
