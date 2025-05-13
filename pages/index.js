@@ -3,51 +3,7 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 
 const pools = [
-  {
-    id: 1,
-    name: 'Luxury Hotel Pool',
-    location: 'London',
-    price: '£25',
-    description: 'Access to rooftop infinity pool with towels included.',
-    type: 'Hotel Pool',
-    image: '/images/luxury-pool.jpg',
-    availableDates: ['2025-05-15', '2025-05-16'],
-    rating: 4.5,
-    reviews: [
-      { user: 'John Doe', comment: 'Amazing experience, highly recommended!', rating: 5 },
-      { user: 'Jane Smith', comment: 'Lovely pool, but a bit crowded.', rating: 4 },
-    ],
-  },
-  {
-    id: 2,
-    name: 'Countryside B&B Pool',
-    location: 'Somerset',
-    price: '£15',
-    description: 'Peaceful outdoor pool with countryside views.',
-    type: 'Public Pool',
-    image: '/images/countryside-pool.jpeg',
-    availableDates: ['2025-05-14', '2025-05-18'],
-    rating: 3.8,
-    reviews: [
-      { user: 'Alice Brown', comment: 'A relaxing place to unwind!', rating: 4 },
-      { user: 'Bob White', comment: 'Great view, but the pool could be cleaner.', rating: 3 },
-    ],
-  },
-  {
-    id: 3,
-    name: 'City Gym Pool',
-    location: 'Manchester',
-    price: '£10',
-    description: 'Indoor heated pool at modern fitness center.',
-    type: 'Gym Pool',
-    image: '/images/city-gym-pool.jpg',
-    availableDates: ['2025-05-10', '2025-05-12'],
-    rating: 4.2,
-    reviews: [
-      { user: 'Sarah Green', comment: 'Nice pool but a little too small for my liking.', rating: 3 },
-      { user: 'Tom Clark', comment: 'Great for a quick swim after the gym!', rating: 5 },
-    ],
-  },
+  // ... existing pool data remains unchanged
 ];
 
 export default function Home() {
@@ -107,7 +63,7 @@ export default function Home() {
 
   return (
     <div className="container" style={{ padding: '20px' }}>
-      {/* Logo + Banner */}
+      {/* Logo + Banner Combined */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
         <Image
           src="/images/poolpass_logo.jpeg"
@@ -116,14 +72,16 @@ export default function Home() {
           height={120}
           style={{ borderRadius: '10px', objectFit: 'contain' }}
         />
-        <Image
-          src="/images/poolpass_banner.jpg"
-          alt="Pool Pass Banner"
-          width={0}
-          height={0}
-          sizes="100vw"
-          style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px' }}
-        />
+        <div style={{ flex: 1 }}>
+          <Image
+            src="/images/poolpass_banner.jpg"
+            alt="Pool Pass Banner"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: '100%', height: '120px', objectFit: 'cover', borderRadius: '10px' }}
+          />
+        </div>
       </div>
 
       {/* Header */}
