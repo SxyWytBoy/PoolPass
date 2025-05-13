@@ -110,14 +110,14 @@ export default function Home() {
       {/* Logo + Banner */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
         <Image
-          src="/images/PoolPass Logo.jpeg"
+          src="/images/poolpass_logo.jpeg"
           alt="Pool Pass Logo"
           width={120}
           height={120}
           style={{ borderRadius: '10px', objectFit: 'contain' }}
         />
         <Image
-          src="/images/PoolPass Banner.jpg"
+          src="/images/poolpass_banner.jpg"
           alt="Pool Pass Banner"
           width={0}
           height={0}
