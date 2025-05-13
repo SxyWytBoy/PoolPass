@@ -107,18 +107,22 @@ export default function Home() {
 
   return (
     <div className="container" style={{ padding: '20px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '30px' }}>
-        <div>
-          <h1>🏊 Pool Pass</h1>
-          <p>Find and book access to pools across the UK</p>
+      {/* Header with Logo and Banner */}
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: '30px' }}>
+        <div style={{ flexShrink: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '150px', paddingRight: '20px' }}>
+          <h1 style={{ margin: 0 }}>🏊 Pool Pass</h1>
+          <p style={{ margin: 0 }}>Find and book access to pools across the UK</p>
         </div>
-        <Image
-          src="/images/PoolPass Banner.jpg"
-          alt="Pool Pass Banner"
-          width={600}
-          height={150}
-          style={{ borderRadius: '10px', objectFit: 'cover' }}
-        />
+        <div style={{ flexGrow: 1 }}>
+          <Image
+            src="/images/PoolPass Banner.jpg"
+            alt="Pool Pass Banner"
+            width={0}
+            height={0}
+            sizes="100vw"
+            style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '10px' }}
+          />
+        </div>
       </div>
 
       {/* Basic Search Options */}
@@ -180,8 +184,6 @@ export default function Home() {
               ))}
             </div>
           </div>
-
-          {/* Amenities, Price Range, etc. can be added here in future */}
         </div>
       )}
 
@@ -230,7 +232,6 @@ export default function Home() {
           background-color: #005ac1;
         }
       `}</style>
-
     </div>
   );
 }
