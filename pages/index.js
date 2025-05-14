@@ -108,7 +108,17 @@ export default function Home() {
     <div className="container" style={{ padding: '20px' }}>
       {/* Logo and Banner Side by Side */}
       <div style={{ display: 'flex', gap: '20px', alignItems: 'center', marginBottom: '20px' }}>
-      
+        <Image
+          src="/images/poolpass_logo.jpeg"
+          alt="PoolPass Logo"
+          width={150}
+          height={120}
+          style={{
+            borderRadius: '10px',
+            objectFit: 'contain',
+            height: '120px',
+            width: 'auto',
+          }}
         />
         <Image
           src="/images/banner.jpg"
