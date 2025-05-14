@@ -116,8 +116,8 @@ export default function Home() {
           style={{ borderRadius: '10px', objectFit: 'contain' }}
         />
         <Image
-          src="/images/PoolPass Banner.jpg"
-          alt="Pool Pass Banner"
+          src="/images/banner.jpg"
+          alt="banner"
           width={800}
           height={120}
           style={{
