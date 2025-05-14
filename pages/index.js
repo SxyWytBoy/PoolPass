@@ -55,9 +55,18 @@ export default function Home() {
   const [selectedTypes, setSelectedTypes] = useState([]);
   const [availableDate, setAvailableDate] = useState('');
   const [guests, setGuests] = useState(1);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
   const [showAdvanced, setShowAdvanced] = useState(false);
   const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowAdvanced(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleTypeChange = (event) => {
     const value = event.target.value;
@@ -65,16 +74,6 @@ export default function Home() {
       prev.includes(value) ? prev.filter((type) => type !== value) : [...prev, value]
     );
   };
-
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-        setDropdownOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, []);
 
   const filteredPools = pools.filter((pool) => {
     const matchesLocation = pool.location.toLowerCase().includes(search.toLowerCase());
@@ -85,11 +84,11 @@ export default function Home() {
 
   const renderRatingStars = (rating) => {
     const fullStars = Math.floor(rating);
-    const halfStars = rating % 1 !== 0;
-    let stars = [];
+    const halfStar = rating % 1 !== 0;
+    const stars = [];
 
     for (let i = 0; i < fullStars; i++) stars.push('★');
-    if (halfStars) stars.push('☆');
+    if (halfStar) stars.push('☆');
     while (stars.length < 5) stars.push('☆');
 
     return stars.join(' ');
@@ -107,7 +106,7 @@ export default function Home() {
 
   return (
     <div className="container" style={{ padding: '20px' }}>
-      {/* Logo + Banner */}
+      {/* Logo and Banner */}
       <div style={{ display: 'flex', alignItems: 'center', marginBottom: '20px' }}>
         <div style={{ flexShrink: 0 }}>
           <Image
@@ -201,7 +200,7 @@ export default function Home() {
         </div>
       )}
 
-      {/* Listings */}
+      {/* Pool Listings */}
       <div>
         {filteredPools.map((pool) => (
           <div key={pool.id} className="card" style={{ marginBottom: '30px' }}>
