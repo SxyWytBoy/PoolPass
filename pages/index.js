@@ -107,15 +107,8 @@ export default function Home() {
 
   return (
     <div className="container" style={{ padding: '20px' }}>
-      {/* Logo + Banner */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '20px', marginBottom: '20px' }}>
-        <Image
-          src="/images/PoolPass Logo.jpeg"
-          alt="Pool Pass Logo"
-          width={120}
-          height={120}
-          style={{ borderRadius: '10px', objectFit: 'contain' }}
-        />
+      {/* Banner Only */}
+      <div style={{ marginBottom: '20px' }}>
         <Image
           src="/images/PoolPass Banner.jpg"
           alt="Pool Pass Banner"
