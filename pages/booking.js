@@ -1,64 +1,45 @@
 // pages/booking.js
-import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-import { useRouter } from 'next/router';
-
-export default function BookingForm() {
+export default function Booking() {
   const router = useRouter();
-  const { pool: selectedPool } = router.query;
+  const { poolId } = router.query;
 
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    date: '',
-    pool: selectedPool ||'',
-  });
+  // Track when router is ready to avoid build-time errors
+  const [ready, setReady] = useState(false);
 
-  const [submitted, setSubmitted] = useState(false);
+  useEffect(() => {
+    if (router.isReady) {
+      setReady(true);
+    }
+  }, [router.isReady]);
 
-  const handleChange = (e) => {
-    setFormData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Booking Info:', formData);
-    setSubmitted(true);
-  };
+  if (!ready) {
+    // Render a loading state while router params are not available
+    return <p className="p-8 text-center text-gray-600">Loading booking details...</p>;
+  }
 
   return (
-    <div style={{ padding: '20px' }}>
-      <Link href="/">← Back to homepage</Link>
-      <h1>Book a Pool</h1>
+    <div className="max-w-3xl mx-auto px-4 py-8">
+      <Link href="/">
+        <a className="text-blue-600 hover:underline text-sm mb-4 inline-block">
+          ← Back to Pools
+        </a>
+      </Link>
 
-      {submitted ? (
-        <p>✅ Booking submitted! We'll contact you soon.</p>
-      ) : (
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', maxWidth: '400px' }}>
-          <label>Name:</label>
-          <input name="name" value={formData.name} onChange={handleChange} required />
+      <h1 className="text-3xl font-bold mb-6">Booking PoolPass</h1>
 
-          <label>Email:</label>
-          <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+      <p className="mb-4">
+        You are booking pool with ID: <strong>{poolId}</strong>
+      </p>
 
-          <label>Date:</label>
-          <input type="date" name="date" value={formData.date} onChange={handleChange} required />
+      {/* TODO: Add your booking form or payment flow here */}
 
-          <label>Choose a Pool:</label>
-          <select name="pool" value={formData.pool} onChange={handleChange} required>
-            <option value="">-- Select --</option>
-            <option value="Luxury Hotel Pool">Luxury Hotel Pool</option>
-            <option value="Countryside B&B Pool">Countryside B&B Pool</option>
-            <option value="City Gym Pool">City Gym Pool</option>
-          </select>
-
-          <button type="submit" style={{ marginTop: '15px' }}>Submit Booking</button>
-        </form>
-      )}
+      <p className="mt-6 text-gray-600">
+        (Booking form functionality coming soon)
+      </p>
     </div>
   );
 }
