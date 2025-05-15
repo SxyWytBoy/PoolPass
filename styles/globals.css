@@ -31,6 +31,7 @@ header {
   max-height: 300px;
   object-fit: cover;
   border-radius: 10px;
+  margin-bottom: 20px;
 }
 
 /* Navigation */
@@ -82,4 +83,144 @@ button {
   border: none;
   border-radius: 5px;
   padding: 10px 16px;
-  cursor: poi
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+button:hover,
+button:focus {
+  background-color: #005dc1;
+  outline: none;
+}
+
+button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
+}
+
+/* Inputs and text areas */
+input,
+textarea,
+select {
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #0070f3;
+  outline-offset: 2px;
+}
+
+/* Filters */
+.filters {
+  margin-bottom: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.filters input,
+.filters select {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid layout for pool cards */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: space-between;
+}
+
+.card-grid .card {
+  flex: 1 1 calc(33.33% - 20px);
+  max-width: calc(33.33% - 20px);
+}
+
+/* Details page */
+.details-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #ffffff;
+  color: #333;
+  border-radius: 10px;
+}
+
+.image-box {
+  width: 100%;
+  overflow: hidden;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.details-image {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.details-content h1 {
+  margin-top: 0;
+  font-size: 2rem;
+}
+
+.details-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .card-grid .card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .header-banner {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .details-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .details-content p {
+    font-size: 1rem;
+  }
+}
