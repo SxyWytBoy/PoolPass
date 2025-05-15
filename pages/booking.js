@@ -1,36 +1,53 @@
-import Link from 'next/link';
+import { useState } from 'react';
 
-export default function Booking({ poolId }) {
+export default function Booking() {
+  const [name, setName] = useState('');
+  const [date, setDate] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    alert(`Booking confirmed for ${name} on ${date}`);
+    // Add your booking logic here
+  }
+
   return (
-    <div className="max-w-3xl mx-auto px-4 py-8">
-      <Link href="/">
-        <a className="text-blue-600 hover:underline text-sm mb-4 inline-block">
-          ← Back to Pools
-        </a>
-      </Link>
-
-      <h1 className="text-3xl font-bold mb-6">Booking PoolPass</h1>
-
-      {poolId ? (
-        <p className="mb-4">
-          You are booking pool with ID: <strong>{poolId}</strong>
-        </p>
-      ) : (
-        <p className="mb-4 text-red-600">No pool selected for booking.</p>
-      )}
-
-      <p className="mt-6 text-gray-600">(Booking form coming soon)</p>
+    <div style={{ padding: '20px', maxWidth: '400px', margin: 'auto' }}>
+      <h1>Book Your Pool</h1>
+      <form onSubmit={handleSubmit}>
+        <label>
+          Name:<br />
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+            style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
+          />
+        </label>
+        <label>
+          Date:<br />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            required
+            style={{ width: '100%', padding: '8px', marginBottom: '10px' }}
+          />
+        </label>
+        <button
+          type="submit"
+          style={{
+            padding: '10px 20px',
+            backgroundColor: '#0070f3',
+            color: 'white',
+            border: 'none',
+            borderRadius: '5px',
+            cursor: 'pointer',
+          }}
+        >
+          Confirm Booking
+        </button>
+      </form>
     </div>
   );
-}
-
-// This function runs at build time and passes props to the page
-export async function getStaticProps(context) {
-  // We can't get query parameters at build time,
-  // so we return null for poolId to avoid undefined errors
-  return {
-    props: {
-      poolId: null,
-    },
-  };
 }
