@@ -1,5 +1,6 @@
 /* globals.css */
 
+/* Base styles */
 body {
   margin: 0;
   font-family: 'Poppins', sans-serif;
@@ -11,16 +12,27 @@ body {
 header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 15px 30px;
   background-color: #001f3f;
   border-bottom: 1px solid #003366;
+  flex-wrap: wrap;
 }
 
-header img {
-  height: 160px; /* Bigger logo */
+.header-left img {
+  height: 100px;
   width: auto;
 }
 
+.header-right img {
+  height: 100px;
+  width: auto;
+  max-width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+/* Nav styling */
 nav {
   margin-left: auto;
   display: flex;
@@ -33,10 +45,13 @@ nav a {
   text-decoration: none;
   font-size: 16px;
   font-weight: bold;
+  transition: color 0.3s ease;
 }
 
-nav a:hover {
+nav a:hover,
+nav a:focus {
   color: #0070f3;
+  outline: none;
 }
 
 /* Container */
@@ -67,37 +82,42 @@ button {
   padding: 10px 16px;
   cursor: pointer;
   font-size: 16px;
+  transition: background-color 0.3s ease;
 }
 
-button:hover {
+button:hover,
+button:focus {
   background-color: #005dc1;
+  outline: none;
+}
+
+button:disabled {
+  background-color: #ccc;
+  color: #666;
+  cursor: not-allowed;
 }
 
 /* Inputs and text areas */
 input,
-textarea {
-  border: 1px solid #ccc;
+textarea,
+select {
+  border: 1px solid #bbb;
   border-radius: 5px;
   padding: 10px;
   font-size: 14px;
   width: 100%;
   margin-top: 5px;
+  transition: all 0.3s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid #0070f3;
+  outline-offset: 2px;
 }
 
 /* Filters */
-.filters input,
-.filters select {
-  background-color: #fff;
-  color: #333;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 14px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-}
-
 .filters {
   margin-bottom: 20px;
   display: flex;
@@ -106,7 +126,20 @@ textarea {
   gap: 10px;
 }
 
-/* Grid layout for tabs/cards */
+.filters input,
+.filters select {
+  background-color: #fff;
+  color: #333;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 14px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Grid layout for pool cards */
 .card-grid {
   display: flex;
   flex-wrap: wrap;
@@ -119,20 +152,7 @@ textarea {
   max-width: calc(33.33% - 20px);
 }
 
-/* Mobile-First Approach */
-@media (max-width: 768px) {
-  .card-grid .card {
-    flex: 1 1 100%;
-    max-width: 100%;
-  }
-
-  nav {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-}
-
-/* View Details Page Styling */
+/* Details page */
 .details-container {
   max-width: 1200px;
   margin: 0 auto;
@@ -164,4 +184,40 @@ textarea {
 .details-content p {
   font-size: 1.1rem;
   line-height: 1.6;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .card-grid .card {
+    flex: 1 1 100%;
+    max-width: 100%;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right img {
+    width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  .details-content h1 {
+    font-size: 1.5rem;
+  }
+
+  .details-content p {
+    font-size: 1rem;
+  }
 }
