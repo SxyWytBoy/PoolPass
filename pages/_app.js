@@ -1,27 +1,52 @@
 // pages/_app.js
 import '../styles/globals.css';
-import Image from 'next/image'; // Import Image for Next.js image optimization
-import Link from 'next/link';   // Import Link for navigation
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function App({ Component, pageProps }) {
   return (
     <>
       {/* Header Section */}
       <header className="header">
-        <Link href="/">
+        <div className="header-logo-wrapper">
+          <Link href="/">
+            <a aria-label="PoolPass Home">
+              <Image
+                src="/poolpass_logo.jpeg" // Make sure the filename is lowercase and no spaces
+                alt="PoolPass Logo"
+                width={300}  // Bigger logo width
+                height={100} // Adjust height for aspect ratio
+                priority={true}
+              />
+            </a>
+          </Link>
+        </div>
+
+        <div className="header-banner-wrapper">
           <Image
-            src="/PoolPass Logo.jpeg" // Path to your logo image
-            alt="PoolPass Logo"
-            width={200} // Adjust width to make the logo bigger
-            height={60} // Adjust height for correct aspect ratio
+            src="/banner.jpg"
+            alt="PoolPass Banner"
+            width={1200} // Banner width
+            height={200} // Thicker banner height
+            priority={true}
+            objectFit="cover"
           />
-        </Link>
+        </div>
+
         <nav className="nav">
-          {/* Add your navigation links here */}
+          <Link href="/">
+            <a>Home</a>
+          </Link>
+          <Link href="/pools">
+            <a>Pools</a>
+          </Link>
+          <Link href="/contact">
+            <a>Contact</a>
+          </Link>
         </nav>
       </header>
 
-      {/* Main Content of the Page */}
+      {/* Main Content */}
       <main className="container">
         <Component {...pageProps} />
       </main>
