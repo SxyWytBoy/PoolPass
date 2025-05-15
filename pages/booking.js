@@ -1,26 +1,6 @@
-// pages/booking.js
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
-export default function Booking() {
-  const router = useRouter();
-  const { poolId } = router.query;
-
-  // Track when router is ready to avoid build-time errors
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    if (router.isReady) {
-      setReady(true);
-    }
-  }, [router.isReady]);
-
-  if (!ready) {
-    // Render a loading state while router params are not available
-    return <p className="p-8 text-center text-gray-600">Loading booking details...</p>;
-  }
-
+export default function Booking({ poolId }) {
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
       <Link href="/">
@@ -31,15 +11,26 @@ export default function Booking() {
 
       <h1 className="text-3xl font-bold mb-6">Booking PoolPass</h1>
 
-      <p className="mb-4">
-        You are booking pool with ID: <strong>{poolId}</strong>
-      </p>
+      {poolId ? (
+        <p className="mb-4">
+          You are booking pool with ID: <strong>{poolId}</strong>
+        </p>
+      ) : (
+        <p className="mb-4 text-red-600">No pool selected for booking.</p>
+      )}
 
-      {/* TODO: Add your booking form or payment flow here */}
-
-      <p className="mt-6 text-gray-600">
-        (Booking form functionality coming soon)
-      </p>
+      <p className="mt-6 text-gray-600">(Booking form coming soon)</p>
     </div>
   );
+}
+
+// This function runs at build time and passes props to the page
+export async function getStaticProps(context) {
+  // We can't get query parameters at build time,
+  // so we return null for poolId to avoid undefined errors
+  return {
+    props: {
+      poolId: null,
+    },
+  };
 }
