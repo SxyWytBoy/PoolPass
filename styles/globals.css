@@ -1,9 +1,85 @@
-<header>
-  <img src="/poolpass_logo.jpeg" alt="PoolPass Logo" className="header-logo" />
-  <img src="/banner.jpg" alt="PoolPass Banner" className="header-banner" />
-  <nav>
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-    <a href="/contact">Contact</a>
-  </nav>
-</header>
+/* globals.css */
+
+/* Base styles */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: #001f3f;
+  color: #fff;
+}
+
+/* Header container */
+header {
+  background-color: #001f3f;
+  border-bottom: 1px solid #003366;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Logo styling */
+.header-logo {
+  height: 160px;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+/* Banner styling */
+.header-banner {
+  width: 100%;
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+/* Navigation */
+nav {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+nav a:hover,
+nav a:focus {
+  color: #0070f3;
+  outline: none;
+}
+
+/* Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+/* Card style */
+.card {
+  background: white;
+  color: #333;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Buttons */
+button {
+  background-color: #0070f3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 16px;
+  cursor: poi
